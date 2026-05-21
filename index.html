@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyrus Jayson Martinez — Civil Engineer & Dewatering Specialist</title>
+<title>Cyrus Jayson Martinez — Civil Engineer & Technical Engineering Specialist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231A5276'/><text y='68' x='50' text-anchor='middle' font-size='52' font-family='serif' fill='white'>C</text></svg>">
@@ -265,6 +265,36 @@ section:nth-child(even){background:var(--white)}
 }
 .pill.green{background:#E8F5EE;color:var(--green)}
 
+.card-status.learning{color:var(--navy);font-style:normal;font-weight:600;background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;margin-top:0.8rem}
+
+/* ── PORTFOLIO FEATURED ── */
+.portfolio-featured-label{
+  display:flex;align-items:center;gap:0.8rem;margin-bottom:1.5rem;
+}
+.portfolio-featured-label span{
+  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--navy);background:var(--navy-pale);
+  padding:0.4rem 1rem;border-radius:2px;
+}
+.portfolio-grid-featured{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem;
+}
+.portfolio-card-featured{
+  border:1.5px solid var(--navy-mid) !important;
+  background:linear-gradient(135deg,var(--white) 80%,var(--navy-pale)) !important;
+  position:relative;
+}
+.portfolio-card-featured:hover{
+  border-color:var(--navy) !important;
+  box-shadow:0 12px 40px rgba(26,82,118,0.15) !important;
+}
+.card-featured-tag{
+  display:inline-block;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--white);background:var(--navy);
+  padding:0.25rem 0.7rem;border-radius:2px;margin-bottom:1rem;
+}
+
 /* ── PORTFOLIO ── */
 .portfolio-intro{max-width:560px;margin-bottom:3rem;color:var(--mid);font-weight:300;line-height:1.85;font-size:0.95rem}
 .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem}
@@ -369,7 +399,7 @@ footer{
 
 <!-- AVAILABILITY BANNER -->
 <div class="avail-banner">
-  <span></span>Currently employed at WJ Groundwater Philippines Corp. &nbsp;·&nbsp; Open to remote & hybrid opportunities
+  <span></span>Open to remote & hybrid roles &nbsp;·&nbsp; Estimator · BIM Modeller · Technical Engineer
 </div>
 
 <!-- NAV -->
@@ -398,7 +428,7 @@ footer{
     <img src="DSC_0758.JPG" alt="Cyrus Jayson Martinez" class="panel-photo" onerror="this.style.display='none';document.getElementById('panel-photo-fb').style.display='flex'">
     <div class="panel-photo-placeholder" id="panel-photo-fb" style="display:none">👤</div>
     <div class="panel-name">Cyrus Jayson Martinez</div>
-    <div class="panel-role">Civil Engineer · Master Plumber · Dewatering Specialist</div>
+    <div class="panel-role">Civil Engineer · Master Plumber · Estimator & BIM Modeller</div>
   </div>
   <div class="panel-body">
     <div class="panel-section-title">Contact</div>
@@ -442,14 +472,14 @@ footer{
     <br>
     <div class="panel-section-title">Key Skills</div>
     <div>
-      <span class="panel-badge">SEEP/W</span>
+      <span class="panel-badge">Cost Estimation</span>
+      <span class="panel-badge">BIM — Revit</span>
       <span class="panel-badge">AutoCAD</span>
       <span class="panel-badge">STAAD.Pro</span>
       <span class="panel-badge">VBA</span>
       <span class="panel-badge">Python</span>
-      <span class="panel-badge">Revit</span>
-      <span class="panel-badge">Cost Estimation</span>
-      <span class="panel-badge">Dewatering Design</span>
+      <span class="panel-badge">SEEP/W</span>
+      <span class="panel-badge">Structural Design</span>
     </div>
 
     <a href="Cyrus_Jayson_Martinez_Resume_Final.docx" class="panel-download" download>⬇ Download Resume</a>
@@ -463,15 +493,16 @@ footer{
       <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>
       Open to Remote & Hybrid Roles
     </span>
-    <h1 class="hero-name">Civil Engineer &<br><em>Dewatering</em><br>Specialist</h1>
-    <p class="hero-sub">Licensed Civil Engineer and Master Plumber based in the Philippines, with hands-on experience in groundwater engineering, structural design, and international project delivery.</p>
+    <h1 class="hero-name">Civil Engineer &<br><em>Technical</em><br>Specialist</h1>
+    <p class="hero-sub">Licensed Civil Engineer and Master Plumber based in the Philippines, with experience in cost estimation, BIM-assisted design, structural engineering, and international project delivery. Open to remote and hybrid roles.</p>
     <div class="hero-badges">
       <span class="badge">PRC Licensed CE</span>
       <span class="badge">PRC Licensed MP</span>
-      <span class="badge">SEEP/W</span>
-      <span class="badge">60+ Tenders</span>
+      <span class="badge">Cost Estimation</span>
+      <span class="badge">BIM — Revit</span>
+      <span class="badge">AutoCAD</span>
       <span class="badge">VBA Automation</span>
-      <span class="badge">Etihad Railway</span>
+      <span class="badge">60+ Tenders</span>
     </div>
     <div class="hero-cta">
       <a href="Cyrus_Jayson_Martinez_Resume_Final.docx" class="btn btn-primary" download>⬇ Download Resume</a>
@@ -511,7 +542,7 @@ footer{
       <p>I am a <strong>Licensed Civil Engineer and Licensed Master Plumber</strong> based in Mabalacat, Pampanga, Philippines. My career started in structural and plumbing design for local and international building projects before moving into groundwater engineering and construction dewatering at WJ Groundwater Philippines Corp.</p>
       <p>At WJ Groundwater, I handle <strong>technical proposals and cost estimates</strong> for dewatering and water supply projects across the Middle East, Saudi Arabia, and the Philippines — over 60 submissions to date. These include tenders for major infrastructure such as the <strong>Abu Dhabi–Dubai Etihad Railway</strong> and the <strong>Cebu–Mactan Bridge.</strong></p>
       <p>Outside of core engineering, I build <strong>VBA-based automation tools</strong> to streamline reporting workflows — reducing manual processing time by approximately 60–80% on active projects. I am also actively upskilling in Revit alongside my existing AutoCAD and SEEP/W capabilities.</p>
-      <p>I am open to <strong>remote or hybrid roles</strong> with international engineering firms, particularly in estimating, technical engineering, and project delivery.</p>
+      <p>I am open to <strong>remote or hybrid roles</strong> with international engineering firms — particularly in <strong>cost estimating, BIM modelling, and technical engineering.</strong> My cross-disciplinary background across groundwater, structural, and plumbing engineering makes me adaptable to a wide range of project types.</p>
     </div>
     <div class="license-cards reveal reveal-delay">
       <div class="license-card">
@@ -580,40 +611,45 @@ footer{
     <div class="section-divider"></div>
   </div>
   <p class="portfolio-intro reveal">All documents use sanitised, fictional data — no real client names, values, or proprietary information. Samples demonstrate methodology, structure, and technical approach.</p>
+
   <div class="portfolio-grid reveal">
+    <div class="portfolio-card portfolio-card-featured">
+      <div class="card-featured-tag">BIM Modelling</div>
+      <div class="card-icon">🏛️</div>
+      <div class="card-title">Revit — BIM Model Sample</div>
+      <div class="card-desc">A 3D BIM model of a fictional low-rise building produced in Revit — including architectural, structural, and MEP coordination. Demonstrates model organisation, family usage, and clash detection awareness.</div>
+      <div class="card-tags"><span class="card-tag">Revit</span><span class="card-tag">BIM</span><span class="card-tag">3D Modelling</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card portfolio-card-featured">
+      <div class="card-featured-tag">Estimating</div>
+      <div class="card-icon">📏</div>
+      <div class="card-title">Bluebeam — Quantity Take-off</div>
+      <div class="card-desc">A PDF-based quantity take-off using Bluebeam Revu — marked-up drawings with measurements, area calculations, and a summarised bill of quantities for a fictional commercial building.</div>
+      <div class="card-tags"><span class="card-tag">Bluebeam</span><span class="card-tag">QTO</span><span class="card-tag">Estimating</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card portfolio-card-featured">
+      <div class="card-featured-tag">Engineering Calculations</div>
+      <div class="card-icon">🧮</div>
+      <div class="card-title">Mathcad — Design Calculation Sheet</div>
+      <div class="card-desc">A structured Mathcad calculation sheet for a fictional structural member — showing load analysis, code-based design checks, and clearly formatted engineering logic suitable for client submission.</div>
+      <div class="card-tags"><span class="card-tag">Mathcad</span><span class="card-tag">Structural</span><span class="card-tag">Calculations</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+
     <div class="portfolio-card">
       <div class="card-icon">📄</div>
       <div class="card-title">Sample Tender / Quotation</div>
-      <div class="card-desc">A complete dewatering tender including executive summary, system design, pump sizing, cost breakdown, and delivery schedule — fictional project.</div>
-      <div class="card-tags"><span class="card-tag">Dewatering</span><span class="card-tag">Estimating</span></div>
-      <span class="card-status">— Coming soon —</span>
-    </div>
-    <div class="portfolio-card">
-      <div class="card-icon">🌊</div>
-      <div class="card-title">SEEP/W Seepage Analysis</div>
-      <div class="card-desc">Sample seepage analysis output — model setup, boundary conditions, flow nets, and groundwater drawdown results for a fictional excavation scenario.</div>
-      <div class="card-tags"><span class="card-tag">SEEP/W</span><span class="card-tag">Hydraulics</span></div>
-      <span class="card-status">— Coming soon —</span>
-    </div>
-    <div class="portfolio-card">
-      <div class="card-icon">📐</div>
-      <div class="card-title">Dewatering Layout Drawing</div>
-      <div class="card-desc">AutoCAD dewatering layout and cross-section for a fictional excavation site — well locations, pump specs, and system schematic.</div>
-      <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Design</span></div>
+      <div class="card-desc">A complete tender submission including executive summary, system design, cost breakdown, and delivery schedule — fictional project.</div>
+      <div class="card-tags"><span class="card-tag">Estimating</span><span class="card-tag">Tender</span></div>
       <span class="card-status">— Coming soon —</span>
     </div>
     <div class="portfolio-card">
       <div class="card-icon">⚙️</div>
       <div class="card-title">VBA Excel Automation Tool</div>
-      <div class="card-desc">A working Excel file demonstrating automated progress reporting and timesheet management. Download and enable macros to see it run on dummy data.</div>
+      <div class="card-desc">A working Excel file with VBA macros for automated progress reporting and timesheet management. Download and enable macros to see it run on dummy data.</div>
       <div class="card-tags"><span class="card-tag">VBA</span><span class="card-tag">Excel</span><span class="card-tag">Automation</span></div>
-      <span class="card-status">— Coming soon —</span>
-    </div>
-    <div class="portfolio-card">
-      <div class="card-icon">📋</div>
-      <div class="card-title">Method Statement</div>
-      <div class="card-desc">Sample construction dewatering method statement — scope, work sequence, equipment list, risk assessment, and monitoring plan.</div>
-      <div class="card-tags"><span class="card-tag">Method Statement</span><span class="card-tag">Technical Writing</span></div>
       <span class="card-status">— Coming soon —</span>
     </div>
     <div class="portfolio-card">
@@ -622,6 +658,34 @@ footer{
       <div class="card-desc">STAAD.Pro analysis output with AutoCAD structural plan — beam and column design, load combinations, and detailing for a fictional low-rise building.</div>
       <div class="card-tags"><span class="card-tag">STAAD.Pro</span><span class="card-tag">AutoCAD</span><span class="card-tag">Structural</span></div>
       <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card">
+      <div class="card-icon">🌊</div>
+      <div class="card-title">SEEP/W Seepage Analysis</div>
+      <div class="card-desc">Sample seepage analysis — model setup, boundary conditions, flow nets, and groundwater drawdown results for a fictional excavation scenario.</div>
+      <div class="card-tags"><span class="card-tag">SEEP/W</span><span class="card-tag">Hydraulics</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Method Statement</div>
+      <div class="card-desc">Sample construction method statement — scope, work sequence, equipment list, risk assessment, and monitoring plan for a fictional project.</div>
+      <div class="card-tags"><span class="card-tag">Method Statement</span><span class="card-tag">Technical Writing</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card">
+      <div class="card-icon">📐</div>
+      <div class="card-title">AutoCAD — Dewatering Layout Drawing</div>
+      <div class="card-desc">AutoCAD dewatering layout and cross-section for a fictional excavation site — well locations, pump specs, and system schematic demonstrating drafting precision and annotation standards.</div>
+      <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Dewatering</span><span class="card-tag">Drafting</span></div>
+      <span class="card-status">— Coming soon —</span>
+    </div>
+    <div class="portfolio-card">
+      <div class="card-icon">📅</div>
+      <div class="card-title">Project Schedule — Excel & Primavera P6</div>
+      <div class="card-desc">A Gantt chart-based project schedule built in Excel covering work breakdown structure, activity sequencing, and milestone tracking — with a Primavera P6 version planned once training is complete.</div>
+      <div class="card-tags"><span class="card-tag">Excel</span><span class="card-tag">Primavera P6</span><span class="card-tag">Scheduling</span></div>
+      <span class="card-status">Excel: Coming soon &nbsp;·&nbsp; </span><span class="card-status learning">📖 P6: Currently learning</span>
     </div>
   </div>
 </section>
@@ -711,7 +775,7 @@ footer{
   </div>
   <div class="contact-wrap reveal">
     <div class="contact-text">
-      <p>I am open to remote and hybrid opportunities with international engineering, groundwater, or construction firms — particularly in estimating, technical engineering, and project delivery roles.</p>
+      <p>I am open to remote and hybrid opportunities with international engineering firms — particularly in <strong>cost estimating, BIM modelling,</strong> and technical engineering roles across any project type.</p>
       <p>Feel free to reach out via email or LinkedIn. I typically respond within 24 hours.</p>
       <a href="Cyrus_Jayson_Martinez_Resume_Final.docx" class="btn btn-primary" download style="margin-top:0.5rem">⬇ Download Resume</a>
       <p class="updated">Last updated: May 2026</p>
