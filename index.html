@@ -15,7 +15,6 @@
   --bg:#F7F9FB;--white:#FFFFFF;--green:#1A7A4A;
   --shadow:0 4px 24px rgba(15,25,35,0.08);
   --shadow-lg:0 12px 48px rgba(15,25,35,0.14);
-  /* Skill tag colours */
   --proficient:#1A5276;--proficient-bg:#EBF5FB;
   --intermediate:#1A7A4A;--intermediate-bg:#E8F5EE;
   --familiar:#7D6608;--familiar-bg:#FEF9E7;
@@ -132,6 +131,8 @@ section:nth-child(even){background:var(--white)}
 .license-title{font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.4rem}
 .license-detail{font-size:0.78rem;color:var(--mid);line-height:1.7}
 .license-detail strong{color:var(--ink);font-weight:500}
+.verify-link{color:var(--navy);font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border-bottom:1px dotted var(--navy)}
+.verify-link:hover{color:var(--navy2)}
 
 /* ── EXPERIENCE ── */
 .timeline{position:relative;padding-left:2.2rem}
@@ -149,7 +150,6 @@ section:nth-child(even){background:var(--white)}
 .pill.green{background:#E8F5EE;color:var(--green)}
 
 /* ── FEATURED PROJECT ── */
-.featured-wrap{margin-bottom:0}
 .featured-card{background:linear-gradient(135deg,var(--navy) 0%,#1a3a5c 60%,#0d2137 100%);border-radius:10px;padding:2.8rem;color:#fff;position:relative;overflow:hidden;display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:center}
 .featured-card-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.08}
 .featured-card>*:not(.featured-card-bg){position:relative;z-index:1}
@@ -348,7 +348,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <div class="learning-strip">🎯 Actively upskilling: <strong>&nbsp;Revit · Bluebeam · Primavera P6</strong></div>
     <span class="hero-tag"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>Open to Remote & Hybrid Roles</span>
     <h1 class="hero-name">Engr. Cyrus Jayson<br>Martinez, <em>RCE, RMP</em></h1>
-    <p class="hero-tagline">"Precise with what I know<br>Honest about what I'm still learning."</p>
+    <p class="hero-tagline">"Precise with what I know.<br>Honest about what I'm still learning."</p>
     <p class="hero-sub">Licensed Civil Engineer and Master Plumber with hands-on experience in cost estimation, BIM-assisted design, structural engineering, and international project delivery.</p>
     <div class="hero-badges">
       <span class="badge">PRC Licensed CE</span><span class="badge">PRC Licensed MP</span><span class="badge">Cost Estimation</span><span class="badge">BIM — Revit</span><span class="badge">AutoCAD</span><span class="badge">VBA Automation</span><span class="badge">60+ Tenders</span>
@@ -386,7 +386,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     </div>
     <div class="stats-grid">
       <div class="stat-card"><span class="stat-num"><span class="counter" data-target="60">0</span>+</span><span class="stat-label">International Tenders</span></div>
-      <div class="stat-card"><span class="stat-num"><span class="counter" data-target="3">0</span>+</span><span class="stat-label">PH Sites<br>Managed</span></div>
+      <div class="stat-card"><span class="stat-num"><span class="counter" data-target="3">0</span>+</span><span class="stat-label">PH Sites Managed</span></div>
       <div class="stat-card"><span class="stat-num"><span class="counter" data-target="86" data-decimal=".7">0</span>%</span><span class="stat-label">CE Board Rating</span></div>
       <div class="stat-card"><span class="stat-num"><span class="counter" data-target="2">0</span></span><span class="stat-label">PRC Licenses</span></div>
     </div>
@@ -417,39 +417,35 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
         <p>Outside of core engineering, I build <strong>VBA-based automation tools</strong> to streamline reporting workflows — reducing manual processing time by approximately 60–80%. I am actively upskilling in Revit, Bluebeam, and Primavera P6 to broaden my capabilities in BIM modelling and project scheduling.</p>
         <p>I am open to <strong>remote or hybrid roles</strong> with international engineering firms — particularly in <strong>cost estimating, BIM modelling, and technical engineering.</strong></p>
       </div>
-
-      <!-- LICENSED CARD -->
       <div class="license-cards reveal reveal-d2">
-  <div class="license-card">
-    <div class="license-title">🏅 Licensed Civil Engineer — RCE</div>
-    <div class="license-detail">
-      PRC Reg. No. 0207132 — 
-      <a href="https://verification.prc.gov.ph/#licnoTab" target="_blank"
-      style="color:var(--navy);font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border-bottom:1px dotted var(--navy);">
-      Verify ↗</a><br>
-      Valid Until: August 7, 2027<br>
-      Board Exam Rating: <strong>86.7%</strong>
+        <div class="license-card">
+          <div class="license-title">🏅 Licensed Civil Engineer — RCE</div>
+          <div class="license-detail">
+            PRC Reg. No. 0207132 —
+            <a href="https://verification.prc.gov.ph/#licnoTab" target="_blank" class="verify-link">Verify ↗</a><br>
+            Valid Until: August 7, 2027<br>
+            Board Exam Rating: <strong>86.7%</strong>
+          </div>
+        </div>
+        <div class="license-card">
+          <div class="license-title">🏅 Licensed Master Plumber — RMP</div>
+          <div class="license-detail">
+            PRC Reg. No. 0024481 —
+            <a href="https://verification.prc.gov.ph/#licnoTab" target="_blank" class="verify-link">Verify ↗</a><br>
+            Valid Until: August 7, 2028<br>
+            Board Exam Rating: <strong>83.4%</strong>
+          </div>
+        </div>
+        <div class="license-card">
+          <div class="license-title">🎓 Education</div>
+          <div class="license-detail">
+            BS Civil Engineering — Major in Structural Engineering<br>
+            Rizal Technological University, 2019–2024
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="license-card">
-    <div class="license-title">🏅 Licensed Master Plumber — RMP</div>
-    <div class="license-detail">
-      PRC Reg. No. 0024481 — 
-      <a href="https://verification.prc.gov.ph/#licnoTab" target="_blank"
-      style="color:var(--navy);font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border-bottom:1px dotted var(--navy);">
-      Verify ↗</a><br>
-      Valid Until: August 7, 2028<br>
-      Board Exam Rating: <strong>83.4%</strong>
-    </div>
-  </div>
-  <div class="license-card">
-    <div class="license-title">🎓 Education</div>
-    <div class="license-detail">
-      BS Civil Engineering — Major in Structural Engineering<br>
-      Rizal Technological University, 2019–2024
-    </div>
-  </div>
-</div>
 </section>
 
 <!-- EXPERIENCE -->
@@ -514,7 +510,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <h2 class="section-title">Built & Deployed</h2>
       <div class="section-divider"></div>
     </div>
-    <div class="featured-wrap reveal">
+    <div class="reveal">
       <div class="featured-card">
         <svg class="featured-card-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <g stroke="#fff" stroke-width="0.8" fill="none">
@@ -572,8 +568,6 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <div class="section-divider"></div>
     </div>
     <p class="portfolio-intro reveal">All documents use sanitised, fictional data — no real client names, values, or proprietary information. Samples demonstrate methodology, structure, and technical approach.</p>
-
-    <!-- Legend -->
     <div class="skill-legend reveal">
       <span class="skill-legend-label">Proficiency:</span>
       <span class="legend-tag tag-proficient">Proficient</span>
@@ -730,7 +724,6 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <h2 class="section-title">Technical Skills</h2>
       <div class="section-divider"></div>
     </div>
-    <!-- Legend -->
     <div class="skill-legend reveal">
       <span class="skill-legend-label">Proficiency:</span>
       <span class="legend-tag tag-proficient">Proficient</span>
@@ -861,14 +854,12 @@ function toggleMenu(){
   burger.classList.toggle('open');
 }
 
-// Scroll reveal
 const reveals=document.querySelectorAll('.reveal');
 const ro=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*90);ro.unobserve(e.target)}});
 },{threshold:0.08});
 reveals.forEach(el=>ro.observe(el));
 
-// Counter animation
 function animateCounter(el){
   const target=parseFloat(el.dataset.target);
   const decimal=el.dataset.decimal||'';
@@ -887,7 +878,6 @@ const co=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 document.querySelectorAll('.stats-grid,.highlights-grid').forEach(el=>co.observe(el));
 
-// Active nav
 const secs=document.querySelectorAll('section[id]');
 const nls=document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll',()=>{
