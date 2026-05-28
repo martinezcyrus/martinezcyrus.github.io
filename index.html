@@ -3,11 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Engr. Cyrus Jayson Martinez, RCE, RMP — Licensed Civil Engineer and Master Plumber specialising in cost estimation, dewatering design, and BIM.">
+<meta property="og:title" content="Engr. Cyrus Jayson Martinez, RCE, RMP">
+<meta property="og:description" content="Licensed Civil Engineer and Master Plumber — Cost Estimation, BIM, Dewatering Design.">
+<meta property="og:url" content="https://martinezcyrus.github.io">
+<meta property="og:type" content="website">
 <title>Engr. Cyrus Jayson Martinez, RCE, RMP — Civil Engineer & Master Plumber</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231A5276'/><text y='68' x='50' text-anchor='middle' font-size='52' font-family='serif' fill='white'>C</text></svg>">
-<style>
+  <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#1A5276;--navy2:#2471A3;--navy-pale:#EBF5FB;--navy-mid:#D0E8F5;
@@ -253,6 +258,118 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
   section{padding:5rem 6vw}
   .hero-left{padding:6vw}
 }
+     /* ── REVIT MODAL GALLERY ── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(8,11,10,0.92);
+  z-index:9000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+  padding:1rem;
+  backdrop-filter:blur(6px);
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.revit-modal{
+  background:var(--white);
+  width:100%;max-width:900px;
+  max-height:92vh;
+  display:flex;flex-direction:column;
+  border-radius:2px;
+  transform:translateY(20px) scale(0.985);
+  transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  overflow:hidden;
+}
+.modal-overlay.open .revit-modal{transform:translateY(0) scale(1)}
+.revit-modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;
+  border-bottom:1px solid var(--rule);
+  flex-shrink:0;gap:1rem;
+}
+.revit-modal-header-left{display:flex;align-items:center;gap:0.75rem;min-width:0}
+.revit-modal-tag{
+  font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--mid);background:#F0F3F7;padding:0.2rem 0.6rem;border-radius:2px;
+  white-space:nowrap;flex-shrink:0;font-family:monospace;
+}
+.revit-modal-title{
+  font-family:'Playfair Display',serif;font-size:1rem;color:var(--ink);
+  font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.revit-modal-header-right{display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
+.revit-modal-counter{
+  font-size:0.7rem;color:var(--soft);letter-spacing:0.05em;
+  white-space:nowrap;font-family:monospace;
+}
+.revit-modal-close{
+  width:30px;height:30px;border:1px solid var(--rule);background:none;
+  cursor:pointer;border-radius:2px;display:flex;align-items:center;justify-content:center;
+  color:var(--mid);font-size:0.9rem;transition:all 0.18s;flex-shrink:0;
+}
+.revit-modal-close:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.revit-image-stage{
+  position:relative;flex:1;background:#F0F2EE;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;min-height:320px;
+}
+.revit-stage-img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  display:none;width:100%;height:100%;
+}
+.revit-stage-img.active{display:block;animation:revitFade 0.25s ease}
+@keyframes revitFade{from{opacity:0}to{opacity:1}}
+.revit-nav-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;background:rgba(255,255,255,0.95);
+  border:1px solid var(--rule);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--ink);font-size:1.2rem;
+  transition:all 0.18s;z-index:10;
+}
+.revit-nav-arrow:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.revit-nav-arrow.prev{left:0.75rem}
+.revit-nav-arrow.next{right:0.75rem}
+.revit-nav-arrow:disabled{opacity:0.2;cursor:default;pointer-events:none}
+.revit-caption{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.6rem 1.5rem;border-top:1px solid var(--rule);
+  background:var(--white);flex-shrink:0;gap:1rem;
+}
+.revit-caption-main{font-size:0.72rem;color:var(--ink);letter-spacing:0.02em;font-family:monospace}
+.revit-caption-sub{font-size:0.68rem;color:var(--soft);white-space:nowrap}
+.revit-strip-section{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 6px;flex-shrink:0;border-right:1px solid var(--rule);margin-right:2px;
+}
+.revit-strip-section span{
+  font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft);
+  writing-mode:vertical-rl;transform:rotate(180deg);font-family:monospace;
+}
+.revit-thumb-strip{
+  display:flex;gap:5px;padding:0.7rem 1.5rem;
+  border-top:1px solid var(--rule);background:var(--white);
+  overflow-x:auto;flex-shrink:0;align-items:center;
+  scrollbar-width:thin;scrollbar-color:var(--rule) transparent;
+}
+.revit-thumb{
+  width:58px;height:44px;border:1.5px solid var(--rule);border-radius:2px;
+  overflow:hidden;cursor:pointer;flex-shrink:0;background:#F0F2EE;
+  transition:all 0.18s;position:relative;
+}
+.revit-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.revit-thumb:hover{border-color:var(--mid)}
+.revit-thumb.active{border-color:var(--navy);border-width:2px}
+.revit-thumb.active::after{
+  content:'';position:absolute;inset:0;background:rgba(26,82,118,0.1);
+}
+@media(max-width:640px){
+  .revit-modal-title{display:none}
+  .revit-image-stage{min-height:200px}
+  .revit-thumb-strip{display:none}
+  .revit-caption{padding:0.5rem 1rem}
+  .revit-modal-header{padding:0.75rem 1rem}
+}
 </style>
 </head>
 <body>
@@ -304,7 +421,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <polygon points="310,58 320,78 310,98 300,78" stroke="#fff" stroke-width="1.5" fill="none"/>
     </svg>
     <button class="panel-close" onclick="closePanel()">✕</button>
-    <img src="DSC_0758.JPG" alt="Engr. Cyrus Jayson Martinez" class="panel-photo" onerror="this.style.display='none'">
+    <img src="assets/images/profile/profile.JPG" alt="Engr. Cyrus Jayson Martinez" class="panel-photo" onerror="this.style.display='none'">
     <div class="panel-name">Engr. Cyrus Jayson Martinez, RCE, RMP</div>
     <div class="panel-role">Civil Engineer · Master Plumber · Estimator & BIM Modeller</div>
   </div>
@@ -331,7 +448,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <div>
       <span class="panel-badge">Cost Estimation</span><span class="panel-badge">BIM — Revit</span><span class="panel-badge">AutoCAD</span><span class="panel-badge">STAAD.Pro</span><span class="panel-badge">VBA</span><span class="panel-badge">SEEP/W</span><span class="panel-badge">Structural Design</span>
     </div>
-    <a href="Cyrus_Jayson_Martinez_Resume_2026.docx" class="panel-download" download>⬇ Download Resume</a>
+    <a href="assets/documents/resume.pdf" class="panel-download" download>⬇ Download Resume</a>
   </div>
 </div>
 
@@ -354,7 +471,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <span class="badge">PRC Licensed CE</span><span class="badge">PRC Licensed MP</span><span class="badge">Cost Estimation</span><span class="badge">BIM — Revit</span><span class="badge">AutoCAD</span><span class="badge">VBA Automation</span><span class="badge">60+ Tenders</span>
     </div>
     <div class="hero-cta">
-      <a href="Cyrus_Jayson_Martinez_Resume_2026.docx" class="btn btn-primary" download>⬇ Download Resume</a>
+      <a href="assets/documents/resume.pdf" class="btn btn-primary" download>⬇ Download Resume</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
   </div>
@@ -381,7 +498,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <polygon points="480,130 495,140 480,150 465,140" fill="#1A5276" opacity="0.8"/>
     </svg>
     <div class="hero-photo-wrap">
-      <img src="DSC_0758.JPG" alt="Engr. Cyrus Jayson Martinez" class="hero-photo" onerror="this.style.display='none'">
+      <img src="assets/images/profile/profile.JPG" alt="Engr. Cyrus Jayson Martinez" class="hero-photo" onerror="this.style.display='none'">
       <div class="currently-badge">● WJ Groundwater</div>
     </div>
     <div class="stats-grid">
@@ -580,14 +697,22 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <div class="portfolio-category reveal">
       <div class="portfolio-category-title"><span>🏛️</span> BIM & Design</div>
       <div class="portfolio-grid">
-        <div class="portfolio-card">
-          <span class="card-skill-tag tag-familiar">Familiar</span>
-          <div class="card-icon">🏛️</div>
-          <div class="card-title">Revit — BIM Model Sample</div>
-          <div class="card-desc">A 3D BIM model of a fictional low-rise building — architectural, structural, and MEP coordination, demonstrating model organisation, family usage, and clash detection awareness.</div>
-          <div class="card-tags"><span class="card-tag">Revit</span><span class="card-tag">BIM</span><span class="card-tag">3D Modelling</span></div>
-          <span class="card-status">— Coming soon —</span>
-        </div>
+        <div class="portfolio-card" onclick="openRevitGallery()" style="cursor:pointer">
+  <span class="card-skill-tag tag-familiar">Familiar</span>
+  <div class="card-icon">🏛️</div>
+  <div class="card-title">Revit — BIM Models & Design Portfolio</div>
+  <div class="card-desc">College design portfolio modelled in Autodesk Revit 2022 — two bungalow houses and a 5-storey commercial building. Includes 3D views, structural framing, floor plans, elevations, ceiling plans, roof plans, and stair details.</div>
+  <div class="card-tags">
+    <span class="card-tag">Revit 2022</span>
+    <span class="card-tag">Architectural</span>
+    <span class="card-tag">Structural</span>
+    <span class="card-tag">3D Modelling</span>
+    <span class="card-tag">Thesis Project</span>
+  </div>
+  <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
+    ↗ Click to view 23 drawings
+  </div>
+</div>
         <div class="portfolio-card">
           <span class="card-skill-tag tag-proficient">Proficient</span>
           <div class="card-icon">📐</div>
@@ -818,7 +943,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <div class="contact-text">
         <p>I am open to remote and hybrid opportunities with international engineering firms — particularly in <strong>cost estimating, BIM modelling,</strong> and technical engineering roles across any project type.</p>
         <p>Feel free to reach out via email or LinkedIn. I typically respond within 24 hours.</p>
-        <a href="Cyrus_Jayson_Martinez_Resume_2026.docx" class="btn btn-primary" download style="margin-top:0.5rem">⬇ Download Resume</a>
+        <a href="assets/documents/resume.pdf" class="btn btn-primary" download style="margin-top:0.5rem">⬇ Download Resume</a>
         <p class="updated">Last updated: May 2026</p>
       </div>
       <div class="contact-links">
@@ -885,6 +1010,134 @@ window.addEventListener('scroll',()=>{
   secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
   nls.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
 },{passive:true});
+  // ── REVIT GALLERY ──
+const REVIT_SLIDES = [
+  {src:'assets/images/revit/thesis-architectural.png', caption:'Thesis — 3D Architectural View',       project:'Thesis Project',           tag:'Thesis',   title:'6-Level Building'},
+  {src:'assets/images/revit/thesis-structural.png',    caption:'Thesis — Structural Framing Model',    project:'Thesis Project',           tag:'Thesis',   title:'Structural Frame'},
+  {src:'assets/images/revit/design1-3d.jpg',           caption:'3D Perspective View',                  project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design1-floorplan.jpg',    caption:'Floor Plan · 1:80',                    project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design1-elevation.jpg',    caption:'Elevation & Section Plans · 1:100',    project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design1-ceiling.jpg',      caption:'Ceiling Plan · 1:80',                  project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design1-roof.jpg',         caption:'Roof Plan · 1:80',                     project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design1-longitudinal.jpg', caption:'Longitudinal Section · 1:100',         project:'Design 1 — Bungalow A',    tag:'Design 1', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-3d.jpg',           caption:'3D Perspective View',                  project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-floorplan.jpg',    caption:'Floor Plan · 1:100',                   project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-elevation.jpg',    caption:'Elevation & Section Plans · 1:120',    project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-ceiling.jpg',      caption:'Ceiling Plan · 1:100',                 project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-roof.jpg',         caption:'Roof Plan · 1:100',                    project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design2-longitudinal.jpg', caption:'Longitudinal Section · 1:120',         project:'Design 2 — Bungalow B',    tag:'Design 2', title:'Bungalow House'},
+  {src:'assets/images/revit/design3-3d.jpg',           caption:'3D Perspective — Rendered View',       project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-vicinity.jpg',     caption:'Vicinity Map & Site Plan',             project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-groundfloor.jpg',  caption:'Ground Floor Plan · 1:70',             project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-upper.jpg',        caption:'2nd to 5th Floor Plan · 1:70',         project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-roofdeck.jpg',     caption:'Roof Deck Plan · 1:70',                project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-elevation.jpg',    caption:'Elevation Views · 1:100 / 1:120',      project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-stairs.jpg',       caption:'Stair Details & Door/Window Schedule', project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+  {src:'assets/images/revit/design3-longitudinal.jpg', caption:'Longitudinal Section',                 project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
+{src:'assets/images/revit/design3-doors-windows.jpg', caption:'Door & Window Schedule',                project:'Design 3 — 5-Storey Bldg',tag:'Design 3', title:'Commercial Building'},
+];
+let revitCur = 0;
+let revitBuilt = false;
+
+function buildRevitGallery() {
+  const stage = document.getElementById('revitStage');
+  const strip = document.getElementById('revitStrip');
+  const prev  = document.getElementById('revitPrev');
+  const next  = document.getElementById('revitNext');
+  let lastTag = null;
+  REVIT_SLIDES.forEach((s, i) => {
+    const img = document.createElement('img');
+    img.className = 'revit-stage-img' + (i === 0 ? ' active' : '');
+    img.src = s.src; img.alt = s.caption;
+    stage.insertBefore(img, next);
+    if (s.tag !== lastTag) {
+      const sec = document.createElement('div');
+      sec.className = 'revit-strip-section';
+      const sp = document.createElement('span');
+      sp.textContent = s.tag;
+      sec.appendChild(sp);
+      strip.appendChild(sec);
+      lastTag = s.tag;
+    }
+    const th = document.createElement('div');
+    th.className = 'revit-thumb' + (i === 0 ? ' active' : '');
+    th.onclick = () => revitGoTo(i);
+    th.title = s.caption;
+    const ti = document.createElement('img');
+    ti.src = s.src; ti.alt = s.caption;
+    th.appendChild(ti);
+    strip.appendChild(th);
+  });
+}
+
+function revitGoTo(idx) {
+  document.querySelectorAll('.revit-stage-img')[revitCur]?.classList.remove('active');
+  document.querySelectorAll('.revit-thumb')[revitCur]?.classList.remove('active');
+  revitCur = idx;
+  document.querySelectorAll('.revit-stage-img')[revitCur]?.classList.add('active');
+  const thumbs = document.querySelectorAll('.revit-thumb');
+  thumbs[revitCur]?.classList.add('active');
+  thumbs[revitCur]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  const s = REVIT_SLIDES[revitCur];
+  document.getElementById('revitTag').textContent     = s.tag;
+  document.getElementById('revitTitle').textContent   = s.title;
+  document.getElementById('revitCounter').textContent = String(revitCur+1).padStart(2,'0')+' / '+String(REVIT_SLIDES.length).padStart(2,'0');
+  document.getElementById('revitCaption').textContent = s.caption;
+  document.getElementById('revitPrev').disabled = revitCur === 0;
+  document.getElementById('revitNext').disabled = revitCur === REVIT_SLIDES.length - 1;
+}
+
+function revitNav(dir) {
+  const n = revitCur + dir;
+  if (n >= 0 && n < REVIT_SLIDES.length) revitGoTo(n);
+}
+
+function openRevitGallery() {
+  if (!revitBuilt) { buildRevitGallery(); revitBuilt = true; }
+  revitGoTo(0);
+  document.getElementById('revitModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRevitGallery() {
+  document.getElementById('revitModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function revitOverlayClick(e) {
+  if (e.target === document.getElementById('revitModalOverlay')) closeRevitGallery();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('revitModalOverlay').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') revitNav(1);
+  if (e.key === 'ArrowLeft')  revitNav(-1);
+  if (e.key === 'Escape')     closeRevitGallery();
+});
 </script>
+  <!-- REVIT GALLERY MODAL -->
+<div class="modal-overlay" id="revitModalOverlay" onclick="revitOverlayClick(event)">
+  <div class="revit-modal" id="revitModal">
+    <div class="revit-modal-header">
+      <div class="revit-modal-header-left">
+        <div class="revit-modal-tag" id="revitTag">Thesis</div>
+        <div class="revit-modal-title" id="revitTitle">6-Level Building</div>
+      </div>
+      <div class="revit-modal-header-right">
+        <span class="revit-modal-counter" id="revitCounter">01 / 23</span>
+        <button class="revit-modal-close" onclick="closeRevitGallery()" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="revit-image-stage" id="revitStage">
+      <button class="revit-nav-arrow prev" id="revitPrev" onclick="revitNav(-1)" aria-label="Previous">&#8249;</button>
+      <button class="revit-nav-arrow next" id="revitNext" onclick="revitNav(1)" aria-label="Next">&#8250;</button>
+    </div>
+    <div class="revit-caption">
+      <span class="revit-caption-main" id="revitCaption">3D Architectural View</span>
+      <span class="revit-caption-sub">Autodesk Revit 2022</span>
+    </div>
+    <div class="revit-thumb-strip" id="revitStrip"></div>
+  </div>
+</div>
 </body>
 </html>
