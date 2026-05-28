@@ -1028,6 +1028,29 @@ function initZoom(){
     updateZoomBtns();
   });
   scroll.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
+  scroll.addEventListener('mousedown',e=>{
+  if(zoomScale<=1)return;
+  e.preventDefault();
+  isDragging=false;
+  const startX=e.clientX+scroll.scrollLeft;
+  const startY=e.clientY+scroll.scrollTop;
+  scroll.classList.add('dragging');
+  document.getElementById('revitStage').classList.add('dragging');
+  const onMove=ev=>{
+    isDragging=true;
+    scroll.scrollLeft=startX-ev.clientX;
+    scroll.scrollTop=startY-ev.clientY;
+  };
+  const onUp=()=>{
+    scroll.classList.remove('dragging');
+    document.getElementById('revitStage').classList.remove('dragging');
+    setTimeout(()=>{isDragging=false;},50);
+    window.removeEventListener('mousemove',onMove);
+    window.removeEventListener('mouseup',onUp);
+  };
+  window.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+});
   let lastDist=0;
   scroll.addEventListener('touchstart',e=>{
     if(e.touches.length===2)
