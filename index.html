@@ -237,10 +237,12 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 .revit-modal-counter{font-size:0.7rem;color:#7eb8e0;letter-spacing:0.05em;white-space:nowrap;font-family:monospace}
 .revit-modal-close{width:30px;height:30px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.08);cursor:pointer;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:0.9rem;transition:all 0.18s;flex-shrink:0}
 .revit-modal-close:hover{background:#e74c3c;border-color:#e74c3c}
-.revit-image-stage{position:relative;flex:1;background:#F0F2EE;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:320px;cursor:zoom-in}
-.revit-image-stage.zoomed{cursor:grab;overflow:auto}
+.revit-image-stage{position:relative;flex:1;background:#F0F2EE;overflow:hidden;min-height:320px;display:flex;align-items:stretch;justify-content:center}
+.revit-image-stage.zoomed{cursor:grab}
 .revit-image-stage.zoomed.dragging{cursor:grabbing}
-.revit-stage-img{object-fit:contain;display:none;width:auto;height:auto;max-width:100%;max-height:100%;transform-origin:center center;transition:transform 0.15s ease;user-select:none;-webkit-user-drag:none}
+.revit-img-scroll{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;cursor:zoom-in;scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+.revit-img-scroll.zoomed{cursor:grab;align-items:flex-start;justify-content:flex-start}
+.revit-stage-img{display:none;width:auto;height:auto;max-width:100%;max-height:60vh;transform-origin:top left;transition:transform 0.15s ease;user-select:none;-webkit-user-drag:none;flex-shrink:0}
 .revit-stage-img.active{display:block;animation:revitFade 0.25s ease}
 @keyframes revitFade{from{opacity:0}to{opacity:1}}
 .revit-nav-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(255,255,255,0.95);border:1px solid var(--rule);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);font-size:1.2rem;transition:all 0.18s;z-index:10}
@@ -870,14 +872,16 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
     </div>
     <div class="revit-image-stage" id="revitStage">
-      <button class="revit-nav-arrow prev" id="revitPrev" onclick="revitNav(-1)" aria-label="Previous">&#8249;</button>
-      <button class="revit-nav-arrow next" id="revitNext" onclick="revitNav(1)" aria-label="Next">&#8250;</button>
-      <div class="revit-zoom-controls">
-        <button class="revit-zoom-btn" id="revitZoomIn"  onclick="zoomStep(1.5)"  aria-label="Zoom in"    title="Zoom in">+</button>
-        <button class="revit-zoom-btn" id="revitZoomOut" onclick="zoomStep(0.67)" aria-label="Zoom out"   title="Zoom out">−</button>
-        <button class="revit-zoom-btn" id="revitZoomReset" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
-      </div>
-    </div>
+  <div class="revit-img-scroll" id="revitImgScroll">
+  </div>
+  <button class="revit-nav-arrow prev" id="revitPrev" onclick="revitNav(-1)" aria-label="Previous">&#8249;</button>
+  <button class="revit-nav-arrow next" id="revitNext" onclick="revitNav(1)" aria-label="Next">&#8250;</button>
+  <div class="revit-zoom-controls">
+    <button class="revit-zoom-btn" id="revitZoomIn"  onclick="zoomStep(1.5)"  aria-label="Zoom in"    title="Zoom in">+</button>
+    <button class="revit-zoom-btn" id="revitZoomOut" onclick="zoomStep(0.67)" aria-label="Zoom out"   title="Zoom out">−</button>
+    <button class="revit-zoom-btn" id="revitZoomReset" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+  </div>
+</div>
     <div class="revit-caption">
       <span class="revit-caption-main" id="revitCaption">3D Architectural View</span>
       <span class="revit-caption-sub">Autodesk Revit 2022</span>
@@ -961,15 +965,12 @@ const MIN_ZOOM=1, MAX_ZOOM=5;
 function getActiveImg(){return document.querySelector('.revit-stage-img.active')}
 
 function applyZoom(img){
-  img.style.transform=`translate(${zoomOriginX}px,${zoomOriginY}px) scale(${zoomScale})`;
+  img.style.transform=`scale(${zoomScale})`;
+  img.style.transformOrigin='top left';
 }
 
 function clampPan(){
-  const stage=document.getElementById('revitStage');
-  const maxX=(stage.clientWidth*(zoomScale-1))/2;
-  const maxY=(stage.clientHeight*(zoomScale-1))/2;
-  zoomOriginX=Math.max(-maxX,Math.min(maxX,zoomOriginX));
-  zoomOriginY=Math.max(-maxY,Math.min(maxY,zoomOriginY));
+  // panning now handled by native scroll
 }
 
 function updateZoomBtns(){
@@ -982,7 +983,9 @@ function updateZoomBtns(){
 function resetZoom(){
   zoomScale=1;zoomOriginX=0;zoomOriginY=0;
   const img=getActiveImg();
-  if(img)applyZoom(img);
+  if(img){img.style.transform='scale(1)';}
+  const scroll=document.getElementById('revitImgScroll');
+  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
   document.getElementById('revitStage').classList.remove('zoomed');
   updateZoomBtns();
 }
@@ -990,95 +993,68 @@ function resetZoom(){
 function zoomStep(factor){
   const img=getActiveImg();if(!img)return;
   zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*factor));
-  clampPan();applyZoom(img);
+  applyZoom(img);
+  const scroll=document.getElementById('revitImgScroll');
+  scroll.classList.toggle('zoomed',zoomScale>1);
   document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
   updateZoomBtns();
 }
 
 function initZoom(){
-  const stage=document.getElementById('revitStage');
-  // hint label
+  const scroll=document.getElementById('revitImgScroll');
   if(!document.getElementById('revitZoomHint')){
     const h=document.createElement('div');
     h.className='revit-zoom-hint';h.id='revitZoomHint';
-    h.textContent='scroll · click to zoom · drag to pan · dbl-click to reset';
-    stage.appendChild(h);
+    h.textContent='scroll · click to zoom · dbl-click to reset';
+    document.getElementById('revitStage').appendChild(h);
   }
-  // mouse wheel
-  stage.addEventListener('wheel',e=>{
+  scroll.addEventListener('wheel',e=>{
     e.preventDefault();
     const img=getActiveImg();if(!img)return;
     zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*(e.deltaY>0?0.85:1.18)));
-    clampPan();applyZoom(img);
-    stage.classList.toggle('zoomed',zoomScale>1);
+    applyZoom(img);
+    scroll.classList.toggle('zoomed',zoomScale>1);
+    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
     updateZoomBtns();
   },{passive:false});
-  // click to zoom toward point
-  stage.addEventListener('click',e=>{
+  scroll.addEventListener('click',e=>{
     if(isDragging)return;
     const img=getActiveImg();if(!img)return;
     if(zoomScale>=MAX_ZOOM){resetZoom();return;}
-    const rect=stage.getBoundingClientRect();
-    const cx=e.clientX-rect.left-rect.width/2;
-    const cy=e.clientY-rect.top-rect.height/2;
     zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
-    zoomOriginX-=cx*0.4;zoomOriginY-=cy*0.4;
-    clampPan();applyZoom(img);
-    stage.classList.toggle('zoomed',zoomScale>1);
+    applyZoom(img);
+    scroll.classList.toggle('zoomed',zoomScale>1);
+    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
     updateZoomBtns();
   });
-  // double-click reset
-  stage.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
-  // drag to pan
-  stage.addEventListener('mousedown',e=>{
-    if(zoomScale<=1)return;
-    isDragging=false;
-    dragStartX=e.clientX-zoomOriginX;dragStartY=e.clientY-zoomOriginY;
-    stage.classList.add('dragging');
-    const onMove=ev=>{
-      isDragging=true;
-      const img=getActiveImg();if(!img)return;
-      zoomOriginX=ev.clientX-dragStartX;zoomOriginY=ev.clientY-dragStartY;
-      clampPan();applyZoom(img);
-    };
-    const onUp=()=>{
-      stage.classList.remove('dragging');
-      setTimeout(()=>{isDragging=false;},50);
-      window.removeEventListener('mousemove',onMove);
-      window.removeEventListener('mouseup',onUp);
-    };
-    window.addEventListener('mousemove',onMove);
-    window.addEventListener('mouseup',onUp);
-  });
-  // pinch zoom (mobile)
+  scroll.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
   let lastDist=0;
-  stage.addEventListener('touchstart',e=>{
+  scroll.addEventListener('touchstart',e=>{
     if(e.touches.length===2)
       lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
   },{passive:true});
-  stage.addEventListener('touchmove',e=>{
+  scroll.addEventListener('touchmove',e=>{
     if(e.touches.length===2){
       e.preventDefault();
       const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
       zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*(dist/lastDist)));
       lastDist=dist;
-      const img=getActiveImg();if(img){clampPan();applyZoom(img);}
-      stage.classList.toggle('zoomed',zoomScale>1);
+      const img=getActiveImg();if(img)applyZoom(img);
+      scroll.classList.toggle('zoomed',zoomScale>1);
       updateZoomBtns();
     }
   },{passive:false});
 }
 
 function buildRevitGallery(){
-  const stage=document.getElementById('revitStage');
+  const scroll=document.getElementById('revitImgScroll');
   const strip=document.getElementById('revitStrip');
-  const next=document.getElementById('revitNext');
   let lastTag=null;
   REVIT_SLIDES.forEach((s,i)=>{
     const img=document.createElement('img');
     img.className='revit-stage-img'+(i===0?' active':'');
     img.src=s.src;img.alt=s.caption;
-    stage.insertBefore(img,next);
+    scroll.appendChild(img);
     if(s.tag!==lastTag){
       const sec=document.createElement('div');
       sec.className='revit-strip-section';
@@ -1097,6 +1073,8 @@ function buildRevitGallery(){
 
 function revitGoTo(idx){
   resetZoom();
+  const scroll=document.getElementById('revitImgScroll');
+  if(scroll){scroll.scrollTop=0;scroll.scrollLeft=0;}
   document.querySelectorAll('.revit-stage-img')[revitCur]?.classList.remove('active');
   document.querySelectorAll('.revit-thumb')[revitCur]?.classList.remove('active');
   revitCur=idx;
