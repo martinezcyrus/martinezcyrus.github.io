@@ -1018,15 +1018,16 @@ function initZoom(){
     updateZoomBtns();
   },{passive:false});
   scroll.addEventListener('click',e=>{
-    if(isDragging)return;
-    const img=getActiveImg();if(!img)return;
-    if(zoomScale>=MAX_ZOOM){resetZoom();return;}
-    zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
-    applyZoom(img);
-    scroll.classList.toggle('zoomed',zoomScale>1);
-    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
-    updateZoomBtns();
-  });
+  if(isDragging)return;
+  if(zoomScale>1)return;
+  const img=getActiveImg();if(!img)return;
+  if(zoomScale>=MAX_ZOOM){resetZoom();return;}
+  zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
+  applyZoom(img);
+  scroll.classList.toggle('zoomed',zoomScale>1);
+  document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
+  updateZoomBtns();
+});
   scroll.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
   scroll.addEventListener('mousedown',e=>{
   if(zoomScale<=1)return;
