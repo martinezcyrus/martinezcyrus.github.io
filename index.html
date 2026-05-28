@@ -284,29 +284,31 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 .revit-modal-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:1rem 1.5rem;
-  border-bottom:1px solid var(--rule);
+  border-bottom:2px solid #0a1f35;
+  background:#0d2137;
   flex-shrink:0;gap:1rem;
 }
 .revit-modal-header-left{display:flex;align-items:center;gap:0.75rem;min-width:0}
 .revit-modal-tag{
   font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--mid);background:#F0F3F7;padding:0.2rem 0.6rem;border-radius:2px;
-  white-space:nowrap;flex-shrink:0;font-family:monospace;
+  color:#a8c8e8;background:rgba(255,255,255,0.08);padding:0.2rem 0.6rem;border-radius:2px;
+  white-space:nowrap;flex-shrink:0;font-family:monospace;border:1px solid rgba(255,255,255,0.15);
 }
 .revit-modal-title{
-  font-family:'Playfair Display',serif;font-size:1rem;color:var(--ink);
+  font-family:'Playfair Display',serif;font-size:1rem;color:#ffffff;
   font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .revit-modal-header-right{display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
 .revit-modal-counter{
-  font-size:0.7rem;color:var(--soft);letter-spacing:0.05em;
+  font-size:0.7rem;color:#7eb8e0;letter-spacing:0.05em;
   white-space:nowrap;font-family:monospace;
 }
 .revit-modal-close{
-  width:30px;height:30px;border:1px solid var(--rule);background:none;
+  width:30px;height:30px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.08);
   cursor:pointer;border-radius:2px;display:flex;align-items:center;justify-content:center;
-  color:var(--mid);font-size:0.9rem;transition:all 0.18s;flex-shrink:0;
+  color:#ffffff;font-size:0.9rem;transition:all 0.18s;flex-shrink:0;
 }
+.revit-modal-close:hover{background:#e74c3c;border-color:#e74c3c;color:#fff}
 .revit-modal-close:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 .revit-image-stage{
   position:relative;flex:1;background:#F0F2EE;
