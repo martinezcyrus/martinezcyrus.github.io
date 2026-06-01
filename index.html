@@ -1335,13 +1335,16 @@ function openAutocadCategory(category){
   document.getElementById('autocadTitle').textContent=labels[category];
   document.getElementById('autocadCounter').style.display='inline';
   document.getElementById('autocadGalleryLabel').textContent=labels[category];
-  if(!autocadBuilt[category]){autocadBuildGallery(category);autocadBuilt[category]=true;}
+  autocadBuildGallery(category);
   if(!autocadZoomInitDone){autocadInitZoom();autocadZoomInitDone=true;}
   autocadGoTo(0);
 }
 function autocadBuildGallery(category){
   const scroll=document.getElementById('autocadImgScroll');
   const strip=document.getElementById('autocadStrip');
+  // clear everything first so categories never overlap
+  scroll.innerHTML='';
+  strip.innerHTML='';
   const slides=AUTOCAD_SLIDES[category];
   let lastTag=null;
   slides.forEach((s,i)=>{
