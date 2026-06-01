@@ -275,6 +275,21 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
   .revit-modal-header{padding:0.75rem 1rem}
   .revit-zoom-hint{display:none}
 }
+/* ── AUTOCAD CATEGORY PICKER ── */
+.autocad-category-screen{display:flex;flex-direction:column;flex:1;padding:2rem;gap:1rem;background:var(--bg);overflow-y:auto}
+.autocad-category-title{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.3rem;font-family:monospace}
+.autocad-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.autocad-cat-card{background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:1.5rem;cursor:pointer;transition:all 0.22s;position:relative;overflow:hidden}
+.autocad-cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--navy2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.autocad-cat-card:hover{border-color:var(--navy-mid);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.autocad-cat-card:hover::after{transform:scaleX(1)}
+.autocad-cat-icon{font-size:1.8rem;margin-bottom:0.8rem}
+.autocad-cat-name{font-size:0.95rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem}
+.autocad-cat-desc{font-size:0.78rem;color:var(--mid);font-weight:300;line-height:1.5;margin-bottom:0.6rem}
+.autocad-cat-count{font-size:0.68rem;font-weight:600;color:var(--navy);background:var(--navy-pale);padding:0.2rem 0.55rem;border-radius:2px;display:inline-block;font-family:monospace}
+.autocad-back-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;font-weight:600;color:var(--mid);background:none;border:1px solid var(--rule);border-radius:2px;padding:0.3rem 0.7rem;cursor:pointer;transition:all 0.18s;font-family:'Outfit',sans-serif;letter-spacing:0.04em;margin-right:0.5rem}
+.autocad-back-btn:hover{color:var(--navy);border-color:var(--navy);background:var(--navy-pale)}
+
 </style>
 </head>
 <body>
@@ -608,13 +623,15 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
             ↗ Click to view 22 drawings
           </div>
         </div>
-        <div class="portfolio-card">
+        <div class="portfolio-card" onclick="openAutocadGallery()" style="cursor:pointer">
           <span class="card-skill-tag tag-proficient">Proficient</span>
           <div class="card-icon">📐</div>
-          <div class="card-title">AutoCAD — Drawings</div>
-          <div class="card-desc">AutoCAD drafting across multiple disciplines — dewatering layouts and cross-sections, structural plan sets and detailing, and plumbing drawings. Covers well locations, pump schematics, framing plans, and sanitary/water supply layouts across local and international projects.</div>
-          <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Dewatering</span><span class="card-tag">Drafting</span></div>
-          <span class="card-status">— Coming soon —</span>
+          <div class="card-title">AutoCAD — Drawings Portfolio</div>
+          <div class="card-desc">Structural, plumbing & sanitary, and dewatering drawings across 20 projects in the Philippines, Guam, Marshall Islands, and KSA.</div>
+          <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Structural</span><span class="card-tag">Plumbing</span><span class="card-tag">Dewatering</span></div>
+          <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
+            ↗ Click to view 3 categories · 66 drawings
+          </div>
         </div>
         <div class="portfolio-card">
           <span class="card-skill-tag tag-intermediate">Intermediate</span>
@@ -872,21 +889,81 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
     </div>
     <div class="revit-image-stage" id="revitStage">
-  <div class="revit-img-scroll" id="revitImgScroll">
-  </div>
-  <button class="revit-nav-arrow prev" id="revitPrev" onclick="revitNav(-1)" aria-label="Previous">&#8249;</button>
-  <button class="revit-nav-arrow next" id="revitNext" onclick="revitNav(1)" aria-label="Next">&#8250;</button>
-  <div class="revit-zoom-controls">
-    <button class="revit-zoom-btn" id="revitZoomIn"  onclick="zoomStep(1.5)"  aria-label="Zoom in"    title="Zoom in">+</button>
-    <button class="revit-zoom-btn" id="revitZoomOut" onclick="zoomStep(0.67)" aria-label="Zoom out"   title="Zoom out">−</button>
-    <button class="revit-zoom-btn" id="revitZoomReset" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
-  </div>
-</div>
+      <div class="revit-img-scroll" id="revitImgScroll"></div>
+      <button class="revit-nav-arrow prev" id="revitPrev" onclick="revitNav(-1)" aria-label="Previous">&#8249;</button>
+      <button class="revit-nav-arrow next" id="revitNext" onclick="revitNav(1)" aria-label="Next">&#8250;</button>
+      <div class="revit-zoom-controls">
+        <button class="revit-zoom-btn" id="revitZoomIn"  onclick="zoomStep(1.5)"  aria-label="Zoom in"    title="Zoom in">+</button>
+        <button class="revit-zoom-btn" id="revitZoomOut" onclick="zoomStep(0.67)" aria-label="Zoom out"   title="Zoom out">−</button>
+        <button class="revit-zoom-btn" id="revitZoomReset" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+      </div>
+    </div>
     <div class="revit-caption">
       <span class="revit-caption-main" id="revitCaption">3D Architectural View</span>
       <span class="revit-caption-sub">Autodesk Revit 2022</span>
     </div>
     <div class="revit-thumb-strip" id="revitStrip"></div>
+  </div>
+</div>
+
+
+<!-- AUTOCAD GALLERY MODAL -->
+<div class="modal-overlay" id="autocadModalOverlay" onclick="autocadOverlayClick(event)">
+  <div class="revit-modal" id="autocadModal">
+    <div class="revit-modal-header">
+      <div class="revit-modal-header-left">
+        <div class="revit-modal-tag" id="autocadTag">AutoCAD</div>
+        <div class="revit-modal-title" id="autocadTitle">Drawings Portfolio</div>
+      </div>
+      <div class="revit-modal-header-right">
+        <span class="revit-modal-counter" id="autocadCounter" style="display:none"></span>
+        <button class="revit-modal-close" onclick="closeAutocadGallery()" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="autocad-category-screen" id="autocadCategoryScreen">
+      <div class="autocad-category-title">Select a drawing category to view</div>
+      <div class="autocad-cat-grid">
+        <div class="autocad-cat-card" onclick="openAutocadCategory('structural')">
+          <div class="autocad-cat-icon">🏗️</div>
+          <div class="autocad-cat-name">Structural Drawings</div>
+          <div class="autocad-cat-desc">Steel frames, foundation plans, framing plans, roof sheeting, and structural details across 13 projects in PH, Guam, and Marshall Islands.</div>
+          <span class="autocad-cat-count">37 drawings · 13 projects</span>
+        </div>
+        <div class="autocad-cat-card" onclick="openAutocadCategory('plumbing')">
+          <div class="autocad-cat-icon">🔧</div>
+          <div class="autocad-cat-name">Plumbing & Sanitary</div>
+          <div class="autocad-cat-desc">Complete plumbing plans, water supply layouts, drainage, and sanitary drawings across 6 projects including international work in Guam and Marshall Islands.</div>
+          <span class="autocad-cat-count">29 drawings · 6 projects</span>
+        </div>
+        <div class="autocad-cat-card" onclick="openAutocadCategory('dewatering')">
+          <div class="autocad-cat-icon">💧</div>
+          <div class="autocad-cat-name">Dewatering Layout</div>
+          <div class="autocad-cat-desc">Construction dewatering layout and cross-section for Sehat Al Saahil Hospital, Dammam, KSA.</div>
+          <span class="autocad-cat-count">2 drawings · 1 project</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:none;flex:1;flex-direction:column;overflow:hidden" id="autocadGalleryScreen">
+      <div style="padding:0.5rem 1rem;border-bottom:1px solid var(--rule);background:var(--white);flex-shrink:0;display:flex;align-items:center">
+        <button class="autocad-back-btn" onclick="autocadBackToCategories()">← Back</button>
+        <span style="font-size:0.72rem;color:var(--mid);font-family:monospace" id="autocadGalleryLabel"></span>
+      </div>
+      <div class="revit-image-stage" id="autocadStage">
+        <div class="revit-img-scroll" id="autocadImgScroll"></div>
+        <button class="revit-nav-arrow prev" id="autocadPrev" onclick="autocadNav(-1)" aria-label="Previous">‹</button>
+        <button class="revit-nav-arrow next" id="autocadNext" onclick="autocadNav(1)" aria-label="Next">›</button>
+        <div class="revit-zoom-controls">
+          <button class="revit-zoom-btn" id="autocadZoomIn"  onclick="autocadZoomStep(1.5)"  title="Zoom in">+</button>
+          <button class="revit-zoom-btn" id="autocadZoomOut" onclick="autocadZoomStep(0.67)" title="Zoom out">−</button>
+          <button class="revit-zoom-btn" onclick="autocadResetZoom()" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+        </div>
+      </div>
+      <div class="revit-caption">
+        <span class="revit-caption-main" id="autocadCaption"></span>
+        <span class="revit-caption-sub">AutoCAD</span>
+      </div>
+      <div class="revit-thumb-strip" id="autocadStrip"></div>
+    </div>
   </div>
 </div>
 
@@ -1005,7 +1082,7 @@ function initZoom(){
   if(!document.getElementById('revitZoomHint')){
     const h=document.createElement('div');
     h.className='revit-zoom-hint';h.id='revitZoomHint';
-    h.textContent='scroll · click to zoom · dbl-click to reset';
+    h.textContent='scroll \u00b7 click to zoom \u00b7 dbl-click to reset';
     document.getElementById('revitStage').appendChild(h);
   }
   scroll.addEventListener('wheel',e=>{
@@ -1018,40 +1095,40 @@ function initZoom(){
     updateZoomBtns();
   },{passive:false});
   scroll.addEventListener('click',e=>{
-  if(isDragging)return;
-  if(zoomScale>1)return;
-  const img=getActiveImg();if(!img)return;
-  if(zoomScale>=MAX_ZOOM){resetZoom();return;}
-  zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
-  applyZoom(img);
-  scroll.classList.toggle('zoomed',zoomScale>1);
-  document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
-  updateZoomBtns();
-});
+    if(isDragging)return;
+    if(zoomScale>1)return;
+    const img=getActiveImg();if(!img)return;
+    if(zoomScale>=MAX_ZOOM){resetZoom();return;}
+    zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
+    applyZoom(img);
+    scroll.classList.toggle('zoomed',zoomScale>1);
+    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
+    updateZoomBtns();
+  });
   scroll.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
   scroll.addEventListener('mousedown',e=>{
-  if(zoomScale<=1)return;
-  e.preventDefault();
-  isDragging=false;
-  const startX=e.clientX+scroll.scrollLeft;
-  const startY=e.clientY+scroll.scrollTop;
-  scroll.classList.add('dragging');
-  document.getElementById('revitStage').classList.add('dragging');
-  const onMove=ev=>{
-    isDragging=true;
-    scroll.scrollLeft=startX-ev.clientX;
-    scroll.scrollTop=startY-ev.clientY;
-  };
-  const onUp=()=>{
-    scroll.classList.remove('dragging');
-    document.getElementById('revitStage').classList.remove('dragging');
-    setTimeout(()=>{isDragging=false;},50);
-    window.removeEventListener('mousemove',onMove);
-    window.removeEventListener('mouseup',onUp);
-  };
-  window.addEventListener('mousemove',onMove);
-  window.addEventListener('mouseup',onUp);
-});
+    if(zoomScale<=1)return;
+    e.preventDefault();
+    isDragging=false;
+    const startX=e.clientX+scroll.scrollLeft;
+    const startY=e.clientY+scroll.scrollTop;
+    scroll.classList.add('dragging');
+    document.getElementById('revitStage').classList.add('dragging');
+    const onMove=ev=>{
+      isDragging=true;
+      scroll.scrollLeft=startX-ev.clientX;
+      scroll.scrollTop=startY-ev.clientY;
+    };
+    const onUp=()=>{
+      scroll.classList.remove('dragging');
+      document.getElementById('revitStage').classList.remove('dragging');
+      setTimeout(()=>{isDragging=false;},50);
+      window.removeEventListener('mousemove',onMove);
+      window.removeEventListener('mouseup',onUp);
+    };
+    window.addEventListener('mousemove',onMove);
+    window.addEventListener('mouseup',onUp);
+  });
   let lastDist=0;
   scroll.addEventListener('touchstart',e=>{
     if(e.touches.length===2)
@@ -1142,6 +1219,252 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')revitNav(-1);
   if(e.key==='Escape')closeRevitGallery();
 });
+
+// ── AUTOCAD GALLERY ──
+const AUTOCAD_SLIDES = {
+  structural: [
+  {src:'assets/images/portfolio/autocad/structural/design1-p1.jpg', caption:'Steel Frame Schedule — Pre-Engineered Warehouse, Guam', tag:'Design 1'},
+  {src:'assets/images/portfolio/autocad/structural/design1-p2.jpg', caption:'Steel Frame Schedule — Sheet 2', tag:'Design 1'},
+  {src:'assets/images/portfolio/autocad/structural/design2-p1.jpg', caption:'Structural Plan — Pre-Engineered Warehouse, Guam', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/structural/design2-p2.jpg', caption:'Structural Plan — Sheet 2', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/structural/design2-p3.jpg', caption:'Structural Plan — Sheet 3', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/structural/design3-p1.jpg', caption:'Structural Plan — 2-Storey Renovation, Antipolo City', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/structural/design3-p2.jpg', caption:'Structural Plan — Sheet 2', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/structural/design4-p1.jpg', caption:'Strap Footing & Foundation Plan — 2-Storey Residential, Taytay Rizal', tag:'Design 4'},
+  {src:'assets/images/portfolio/autocad/structural/design4-p2.jpg', caption:'Foundation Plan — Sheet 2', tag:'Design 4'},
+  {src:'assets/images/portfolio/autocad/structural/design5-p1.jpg', caption:'Roof Framing & Roof Sheeting Plan — 2-Storey Residential, Taytay Rizal', tag:'Design 5'},
+  {src:'assets/images/portfolio/autocad/structural/design5-p2.jpg', caption:'Roof Sheeting Plan — Sheet 2', tag:'Design 5'},
+  {src:'assets/images/portfolio/autocad/structural/design6-p1.jpg', caption:'Complete Structural Plans — 2-Storey Residential, Taytay Rizal', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/structural/design6-p2.jpg', caption:'Structural Plans — Sheet 2', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/structural/design6-p3.jpg', caption:'Structural Plans — Sheet 3', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/structural/design6-p4.jpg', caption:'Structural Plans — Sheet 4', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/structural/design7-p1.jpg', caption:'Structural Plan — Events Place Steel Structure, Antipolo Rizal', tag:'Design 7'},
+  {src:'assets/images/portfolio/autocad/structural/design7-p2.jpg', caption:'Structural Plan — Sheet 2', tag:'Design 7'},
+  {src:'assets/images/portfolio/autocad/structural/design8-p1.jpg', caption:'Structural & Roof Sheeting Plan — Warehouse, Camarines Norte', tag:'Design 8'},
+  {src:'assets/images/portfolio/autocad/structural/design8-p2.jpg', caption:'Structural Plan — Sheet 2', tag:'Design 8'},
+  {src:'assets/images/portfolio/autocad/structural/design8-p3.jpg', caption:'Structural Plan — Sheet 3', tag:'Design 8'},
+  {src:'assets/images/portfolio/autocad/structural/design9-p1.jpg', caption:'Foundation Plan — Events Place Steel Structure, Antipolo Rizal', tag:'Design 9'},
+  {src:'assets/images/portfolio/autocad/structural/design9-p2.jpg', caption:'Roof Sheeting Plan', tag:'Design 9'},
+  {src:'assets/images/portfolio/autocad/structural/design9-p3.jpg', caption:'Structural Steel Detail', tag:'Design 9'},
+  {src:'assets/images/portfolio/autocad/structural/design9-p4.jpg', caption:'Steel Schedule', tag:'Design 9'},
+  {src:'assets/images/portfolio/autocad/structural/design9-p5.jpg', caption:'Steel Schedule — Sheet 2', tag:'Design 9'},
+  {src:'assets/images/portfolio/autocad/structural/design10-p1.jpg', caption:'Steel Deck Slab Detail — Proposed 2-Storey Gym and Salon', tag:'Design 10'},
+  {src:'assets/images/portfolio/autocad/structural/design10-p2.jpg', caption:'Steel Deck Slab Detail — Sheet 2', tag:'Design 10'},
+  {src:'assets/images/portfolio/autocad/structural/design11-p1.jpg', caption:'Complete Structural Plans — 2-Storey Residential, Pasig City', tag:'Design 11'},
+  {src:'assets/images/portfolio/autocad/structural/design11-p2.jpg', caption:'Structural Plans — Sheet 2', tag:'Design 11'},
+  {src:'assets/images/portfolio/autocad/structural/design11-p3.jpg', caption:'Structural Plans — Sheet 3', tag:'Design 11'},
+  {src:'assets/images/portfolio/autocad/structural/design11-p4.jpg', caption:'Structural Plans — Sheet 4', tag:'Design 11'},
+  {src:'assets/images/portfolio/autocad/structural/design12-p1.jpg', caption:'Renovation Plan — 6-Plex Apartment, Tamuning, Guam', tag:'Design 12'},
+  {src:'assets/images/portfolio/autocad/structural/design13-p1.jpg', caption:'Complete Structural Plans — 3-Storey Residential, Quezon City', tag:'Design 13'},
+  {src:'assets/images/portfolio/autocad/structural/design13-p2.jpg', caption:'Structural Plans — Sheet 2', tag:'Design 13'},
+  {src:'assets/images/portfolio/autocad/structural/design13-p3.jpg', caption:'Structural Plans — Sheet 3', tag:'Design 13'},
+  ],
+  plumbing: [
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design1-p1.jpg', caption:'Cold Water & Hot Water Plan — Pre-Engineered Warehouse, Guam', tag:'Design 1'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design1-p2.jpg', caption:'Water Layout — Sheet 2', tag:'Design 1'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design2-p1.jpg', caption:'Complete Plumbing Plans — 2-Storey Residential, Taytay Rizal', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design2-p2.jpg', caption:'Plumbing Plans — Sheet 2', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design2-p3.jpg', caption:'Plumbing Plans — Sheet 3', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design2-p4.jpg', caption:'Plumbing Plans — Sheet 4', tag:'Design 2'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p1.jpg', caption:'Complete Plumbing Plans — US Army Garrison, Kwajalein Atoll, Marshall Islands', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p2.jpg', caption:'Plumbing Plans — Sheet 2', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p3.jpg', caption:'Plumbing Plans — Sheet 3', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p4.jpg', caption:'Plumbing Plans — Sheet 4', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p5.jpg', caption:'Plumbing Plans — Sheet 5', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p6.jpg', caption:'Plumbing Plans — Sheet 6', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p7.jpg', caption:'Plumbing Plans — Sheet 7', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p8.jpg', caption:'Plumbing Plans — Sheet 8', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p9.jpg', caption:'Plumbing Plans — Sheet 9', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p10.jpg', caption:'Plumbing Plans — Sheet 10', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p11.jpg', caption:'Plumbing Plans — Sheet 11', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p12.jpg', caption:'Plumbing Plans — Sheet 12', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p13.jpg', caption:'Plumbing Plans — Sheet 13', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p14.jpg', caption:'Plumbing Plans — Sheet 14', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p15.jpg', caption:'Plumbing Plans — Sheet 15', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design3-p16.jpg', caption:'Plumbing Plans — Sheet 16', tag:'Design 3'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design4-p1.jpg', caption:'Complete Plumbing Plans — 2-Storey Residential, Pasig City', tag:'Design 4'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design4-p2.jpg', caption:'Plumbing Plans — Sheet 2', tag:'Design 4'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design5-p1.jpg', caption:'Complete Plumbing Plans — 3-Storey Residential, Quezon City', tag:'Design 5'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design5-p2.jpg', caption:'Plumbing Plans — Sheet 2', tag:'Design 5'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design6-p1.jpg', caption:'Drainage Layout — Pre-Engineered Warehouse, Guam', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design6-p2.jpg', caption:'Drainage Layout — Sheet 2', tag:'Design 6'},
+  {src:'assets/images/portfolio/autocad/plumbing-sanitary/design6-p3.jpg', caption:'Drainage Layout — Sheet 3', tag:'Design 6'},
+  ],
+  dewatering: [
+  {src:'assets/images/portfolio/autocad/dewatering/design1-p1.jpg', caption:'Dewatering Layout — Sehat Al Saahil Hospital, Dammam, KSA', tag:'Design 1'},
+  {src:'assets/images/portfolio/autocad/dewatering/design1-p2.jpg', caption:'Dewatering Cross-Section — Dammam, KSA', tag:'Design 1'},
+  ],
+};
+
+let autocadCur=0, autocadActiveCategory=null;
+let autocadBuilt={structural:false,plumbing:false,dewatering:false};
+let autocadZoomScale=1, autocadIsDragging=false, autocadZoomInitDone=false;
+const AC_MIN=1, AC_MAX=5;
+
+function openAutocadGallery(){
+  document.getElementById('autocadCategoryScreen').style.display='flex';
+  document.getElementById('autocadGalleryScreen').style.display='none';
+  document.getElementById('autocadCounter').style.display='none';
+  document.getElementById('autocadTag').textContent='AutoCAD';
+  document.getElementById('autocadTitle').textContent='Drawings Portfolio';
+  document.getElementById('autocadModalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAutocadGallery(){
+  document.getElementById('autocadModalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function autocadOverlayClick(e){
+  if(e.target===document.getElementById('autocadModalOverlay'))closeAutocadGallery();
+}
+function autocadBackToCategories(){
+  document.getElementById('autocadCategoryScreen').style.display='flex';
+  document.getElementById('autocadGalleryScreen').style.display='none';
+  document.getElementById('autocadCounter').style.display='none';
+  document.getElementById('autocadTag').textContent='AutoCAD';
+  document.getElementById('autocadTitle').textContent='Drawings Portfolio';
+}
+function openAutocadCategory(category){
+  autocadActiveCategory=category;
+  const labels={structural:'Structural Drawings',plumbing:'Plumbing & Sanitary',dewatering:'Dewatering Layout'};
+  const tags={structural:'Structural',plumbing:'Plumbing',dewatering:'Dewatering'};
+  document.getElementById('autocadCategoryScreen').style.display='none';
+  const gs=document.getElementById('autocadGalleryScreen');
+  gs.style.display='flex';gs.style.flexDirection='column';gs.style.overflow='hidden';gs.style.flex='1';
+  document.getElementById('autocadTag').textContent=tags[category];
+  document.getElementById('autocadTitle').textContent=labels[category];
+  document.getElementById('autocadCounter').style.display='inline';
+  document.getElementById('autocadGalleryLabel').textContent=labels[category];
+  if(!autocadBuilt[category]){autocadBuildGallery(category);autocadBuilt[category]=true;}
+  if(!autocadZoomInitDone){autocadInitZoom();autocadZoomInitDone=true;}
+  autocadGoTo(0);
+}
+function autocadBuildGallery(category){
+  const scroll=document.getElementById('autocadImgScroll');
+  const strip=document.getElementById('autocadStrip');
+  const slides=AUTOCAD_SLIDES[category];
+  let lastTag=null;
+  slides.forEach((s,i)=>{
+    const img=document.createElement('img');
+    img.className='revit-stage-img';
+    img.dataset.category=category;img.dataset.index=i;
+    img.src=s.src;img.alt=s.caption;
+    scroll.appendChild(img);
+    if(s.tag!==lastTag){
+      const sec=document.createElement('div');
+      sec.className='revit-strip-section';
+      const sp=document.createElement('span');
+      sp.textContent=s.tag;sec.appendChild(sp);
+      sec.dataset.category=category;
+      strip.appendChild(sec);lastTag=s.tag;
+    }
+    const th=document.createElement('div');
+    th.className='revit-thumb';
+    th.dataset.category=category;th.dataset.index=i;
+    th.onclick=()=>autocadGoTo(i);th.title=s.caption;
+    const ti=document.createElement('img');
+    ti.src=s.src;ti.alt=s.caption;th.appendChild(ti);
+    strip.appendChild(th);
+  });
+}
+function autocadGetActiveImg(){
+  return document.querySelector('.revit-stage-img.active[data-category="'+autocadActiveCategory+'"]');
+}
+function autocadApplyZoom(img){img.style.transform='scale('+autocadZoomScale+')';img.style.transformOrigin='top left';}
+function autocadResetZoom(){
+  autocadZoomScale=1;
+  const img=autocadGetActiveImg();
+  if(img)img.style.transform='scale(1)';
+  const scroll=document.getElementById('autocadImgScroll');
+  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
+  document.getElementById('autocadStage').classList.remove('zoomed');
+  const zi=document.getElementById('autocadZoomIn'),zo=document.getElementById('autocadZoomOut');
+  if(zi)zi.disabled=false;if(zo)zo.disabled=true;
+}
+function autocadZoomStep(factor){
+  const img=autocadGetActiveImg();if(!img)return;
+  autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*factor));
+  autocadApplyZoom(img);
+  const scroll=document.getElementById('autocadImgScroll');
+  scroll.classList.toggle('zoomed',autocadZoomScale>1);
+  document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
+  const zi=document.getElementById('autocadZoomIn'),zo=document.getElementById('autocadZoomOut');
+  if(zi)zi.disabled=autocadZoomScale>=AC_MAX;if(zo)zo.disabled=autocadZoomScale<=AC_MIN;
+}
+function autocadInitZoom(){
+  const scroll=document.getElementById('autocadImgScroll');
+  scroll.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const img=autocadGetActiveImg();if(!img)return;
+    autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*(e.deltaY>0?0.85:1.18)));
+    autocadApplyZoom(img);
+    scroll.classList.toggle('zoomed',autocadZoomScale>1);
+    document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
+  },{passive:false});
+  scroll.addEventListener('click',e=>{
+    if(autocadIsDragging)return;
+    if(autocadZoomScale>1)return;
+    const img=autocadGetActiveImg();if(!img)return;
+    autocadZoomScale=Math.min(AC_MAX,autocadZoomScale*1.8);
+    autocadApplyZoom(img);
+    scroll.classList.toggle('zoomed',autocadZoomScale>1);
+    document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
+  });
+  scroll.addEventListener('dblclick',e=>{e.preventDefault();autocadResetZoom();});
+  scroll.addEventListener('mousedown',e=>{
+    if(autocadZoomScale<=1)return;
+    e.preventDefault();autocadIsDragging=false;
+    const sx=e.clientX+scroll.scrollLeft, sy=e.clientY+scroll.scrollTop;
+    scroll.classList.add('dragging');
+    const onMove=ev=>{autocadIsDragging=true;scroll.scrollLeft=sx-ev.clientX;scroll.scrollTop=sy-ev.clientY;};
+    const onUp=()=>{scroll.classList.remove('dragging');setTimeout(()=>{autocadIsDragging=false;},50);window.removeEventListener('mousemove',onMove);window.removeEventListener('mouseup',onUp);};
+    window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
+  });
+  let lastDist=0;
+  scroll.addEventListener('touchstart',e=>{
+    if(e.touches.length===2)lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  },{passive:true});
+  scroll.addEventListener('touchmove',e=>{
+    if(e.touches.length===2){
+      e.preventDefault();
+      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*(dist/lastDist)));
+      lastDist=dist;
+      const img=autocadGetActiveImg();if(img)autocadApplyZoom(img);
+      scroll.classList.toggle('zoomed',autocadZoomScale>1);
+    }
+  },{passive:false});
+}
+function autocadGoTo(idx){
+  autocadResetZoom();
+  const slides=AUTOCAD_SLIDES[autocadActiveCategory];
+  document.querySelectorAll('.revit-stage-img[data-category="'+autocadActiveCategory+'"]').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.revit-thumb[data-category="'+autocadActiveCategory+'"]').forEach(el=>el.classList.remove('active'));
+  autocadCur=idx;
+  const imgs=document.querySelectorAll('.revit-stage-img[data-category="'+autocadActiveCategory+'"]');
+  const thumbs=document.querySelectorAll('.revit-thumb[data-category="'+autocadActiveCategory+'"]');
+  imgs[idx]?.classList.add('active');
+  thumbs[idx]?.classList.add('active');
+  thumbs[idx]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  const s=slides[idx];
+  document.getElementById('autocadTag').textContent=s.tag;
+  document.getElementById('autocadCounter').textContent=String(idx+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  document.getElementById('autocadCaption').textContent=s.caption;
+  document.getElementById('autocadPrev').disabled=idx===0;
+  document.getElementById('autocadNext').disabled=idx===slides.length-1;
+}
+function autocadNav(dir){
+  const slides=AUTOCAD_SLIDES[autocadActiveCategory];
+  const n=autocadCur+dir;
+  if(n>=0&&n<slides.length)autocadGoTo(n);
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('autocadModalOverlay').classList.contains('open'))return;
+  if(e.key==='ArrowRight')autocadNav(1);
+  if(e.key==='ArrowLeft')autocadNav(-1);
+  if(e.key==='Escape')closeAutocadGallery();
+});
+
 </script>
 </body>
 </html>
