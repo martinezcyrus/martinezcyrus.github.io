@@ -152,6 +152,8 @@ section:nth-child(even){background:var(--white)}
 .btn-featured-outline{display:inline-block;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4);padding:0.7rem 1.4rem;border-radius:3px;font-size:0.82rem;font-weight:600;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s}
 .btn-featured-outline:hover{border-color:#fff;background:rgba(255,255,255,0.08);transform:translateY(-2px)}
 .featured-status{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.6);margin-top:0.8rem;letter-spacing:0.06em}
+.featured-demo-hint{font-size:0.8rem;color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:0.6rem 0.9rem;margin-top:1rem;line-height:1.5}
+.featured-demo-hint strong{color:#fff;font-weight:600}
 .featured-status::before{content:'';width:7px;height:7px;border-radius:50%;background:#F5B041;display:inline-block}
 .featured-preview{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:1.4rem;backdrop-filter:blur(8px)}
 .featured-preview-title{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:1rem}
@@ -566,9 +568,9 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
             <span class="stack-tag">JavaScript</span><span class="stack-tag">Supabase</span><span class="stack-tag">Vercel</span><span class="stack-tag">GitHub</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">REST API</span>
           </div>
           <div class="featured-btns">
-            <a href="https://dewaprice.vercel.app" target="_blank" class="btn-featured-primary">Launch App →</a>
-            <a href="https://github.com/martinezcyrus" target="_blank" class="btn-featured-outline">View on GitHub</a>
+            <a href="https://dewaprice.vercel.app/login" target="_blank" class="btn-featured-primary">Launch App →</a>
           </div>
+          <div class="featured-demo-hint">✨ Try the live demo — no signup needed. Just click <strong>"Continue as Guest"</strong> on the sign-in page.</div>
           <div class="featured-status">In active development — engineering calculation engine being refined</div>
         </div>
         <div class="featured-preview">
@@ -612,7 +614,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <div class="portfolio-category-title"><span>🏛️</span> BIM & Design</div>
       <div class="portfolio-grid">
         <div class="portfolio-card" onclick="openRevitGallery()" style="cursor:pointer">
-          <span class="card-skill-tag tag-intermediate">Intermediate</span>
+          <span class="card-skill-tag tag-familiar">Familiar</span>
           <div class="card-icon">🏛️</div>
           <div class="card-title">Revit — BIM Models & Design Portfolio</div>
           <div class="card-desc">College design portfolio modelled in Autodesk Revit 2022 — two bungalow houses and a 5-storey commercial building. Includes 3D views, structural framing, floor plans, elevations, ceiling plans, roof plans, and stair details.</div>
@@ -776,7 +778,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
         <div class="skill-group-title">Design, Drafting & BIM</div>
         <div class="skill-item"><span class="skill-item-name">AutoCAD</span><span class="skill-tag-inline tag-proficient">Proficient</span></div>
         <div class="skill-item"><span class="skill-item-name">SketchUp</span><span class="skill-tag-inline tag-intermediate">Intermediate</span></div>
-        <div class="skill-item"><span class="skill-item-name">Revit</span><span class="skill-tag-inline tag-intermediate">Intermediate</span></div>
+        <div class="skill-item"><span class="skill-item-name">Revit</span><span class="skill-tag-inline tag-familiar">Familiar</span></div>
         <div class="skill-item"><span class="skill-item-name">Bluebeam Revu</span><span class="skill-tag-inline tag-learning">Currently Learning</span></div>
       </div>
       <div>
@@ -1335,16 +1337,13 @@ function openAutocadCategory(category){
   document.getElementById('autocadTitle').textContent=labels[category];
   document.getElementById('autocadCounter').style.display='inline';
   document.getElementById('autocadGalleryLabel').textContent=labels[category];
-  autocadBuildGallery(category);
+  if(!autocadBuilt[category]){autocadBuildGallery(category);autocadBuilt[category]=true;}
   if(!autocadZoomInitDone){autocadInitZoom();autocadZoomInitDone=true;}
   autocadGoTo(0);
 }
 function autocadBuildGallery(category){
   const scroll=document.getElementById('autocadImgScroll');
   const strip=document.getElementById('autocadStrip');
-  // clear everything first so categories never overlap
-  scroll.innerHTML='';
-  strip.innerHTML='';
   const slides=AUTOCAD_SLIDES[category];
   let lastTag=null;
   slides.forEach((s,i)=>{
