@@ -636,13 +636,15 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
             ↗ Click to view 3 categories · 66 drawings
           </div>
         </div>
-        <div class="portfolio-card">
+        <div class="portfolio-card" onclick="openSketchupGallery()" style="cursor:pointer">
           <span class="card-skill-tag tag-intermediate">Intermediate</span>
           <div class="card-icon">🏗️</div>
-          <div class="card-title">SketchUp — 3D Building Model</div>
-          <div class="card-desc">A SketchUp 3D model exported from AutoCAD — demonstrating building massing, spatial layout, and model presentation for a fictional commercial structure.</div>
-          <div class="card-tags"><span class="card-tag">SketchUp</span><span class="card-tag">3D Modelling</span><span class="card-tag">AutoCAD</span></div>
-          <span class="card-status">— Coming soon —</span>
+          <div class="card-title">SketchUp — 3D Building Models</div>
+          <div class="card-desc">3D building models across 5 projects — duplex apartment, residential houses, and structural detailing. Demonstrates building massing, spatial layout, and 3D model presentation.</div>
+          <div class="card-tags"><span class="card-tag">SketchUp</span><span class="card-tag">3D Modelling</span><span class="card-tag">Architectural</span></div>
+          <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
+            ↗ Click to view 5 models
+          </div>
         </div>
       </div>
     </div>
@@ -967,6 +969,37 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
       <div class="revit-thumb-strip" id="autocadStrip"></div>
     </div>
+  </div>
+</div>
+
+<!-- SKETCHUP GALLERY MODAL -->
+<div class="modal-overlay" id="sketchupModalOverlay" onclick="sketchupOverlayClick(event)">
+  <div class="revit-modal" id="sketchupModal">
+    <div class="revit-modal-header">
+      <div class="revit-modal-header-left">
+        <div class="revit-modal-tag" id="sketchupTag">Design 1</div>
+        <div class="revit-modal-title" id="sketchupTitle">3D Building Models</div>
+      </div>
+      <div class="revit-modal-header-right">
+        <span class="revit-modal-counter" id="sketchupCounter">01 / 05</span>
+        <button class="revit-modal-close" onclick="closeSketchupGallery()" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="revit-image-stage" id="sketchupStage">
+      <div class="revit-img-scroll" id="sketchupImgScroll"></div>
+      <button class="revit-nav-arrow prev" id="sketchupPrev" onclick="sketchupNav(-1)" aria-label="Previous">&#8249;</button>
+      <button class="revit-nav-arrow next" id="sketchupNext" onclick="sketchupNav(1)" aria-label="Next">&#8250;</button>
+      <div class="revit-zoom-controls">
+        <button class="revit-zoom-btn" id="sketchupZoomIn"  onclick="sketchupZoomStep(1.5)"  aria-label="Zoom in"  title="Zoom in">+</button>
+        <button class="revit-zoom-btn" id="sketchupZoomOut" onclick="sketchupZoomStep(0.67)" aria-label="Zoom out" title="Zoom out">−</button>
+        <button class="revit-zoom-btn" onclick="sketchupResetZoom()" aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+      </div>
+    </div>
+    <div class="revit-caption">
+      <span class="revit-caption-main" id="sketchupCaption"></span>
+      <span class="revit-caption-sub">SketchUp</span>
+    </div>
+    <div class="revit-thumb-strip" id="sketchupStrip"></div>
   </div>
 </div>
 
@@ -1474,6 +1507,166 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')autocadNav(1);
   if(e.key==='ArrowLeft')autocadNav(-1);
   if(e.key==='Escape')closeAutocadGallery();
+});
+
+// ── SKETCHUP GALLERY ──
+const SKETCHUP_SLIDES = [
+  {src:'assets/images/portfolio/sketchup/design1-3d.jpg', caption:'3D Model — 2-Storey Duplex Apartment',          tag:'Design 1', title:'Duplex Apartment'},
+  {src:'assets/images/portfolio/sketchup/design2-3d.jpg', caption:'3D Model — 2-Storey Residential House',          tag:'Design 2', title:'Residential House'},
+  {src:'assets/images/portfolio/sketchup/design3-3d.jpg', caption:'3D Model — 2-Storey Residential House',          tag:'Design 3', title:'Residential House'},
+  {src:'assets/images/portfolio/sketchup/design4-3d.jpg', caption:'Strap Footing Detailing & 3D Model',             tag:'Design 4', title:'Strap Footing Detail'},
+  {src:'assets/images/portfolio/sketchup/design5-3d.jpg', caption:'3D Model — 3-Storey Residential House',          tag:'Design 5', title:'Residential House'},
+];
+let sketchupCur=0, sketchupBuilt=false;
+let sketchupZoomScale=1, sketchupIsDragging=false;
+const SU_MIN=1, SU_MAX=5;
+
+function sketchupGetActiveImg(){return document.querySelector('#sketchupImgScroll .revit-stage-img.active')}
+function sketchupApplyZoom(img){img.style.transform='scale('+sketchupZoomScale+')';img.style.transformOrigin='top left';}
+function sketchupUpdateZoomBtns(){
+  const zi=document.getElementById('sketchupZoomIn'),zo=document.getElementById('sketchupZoomOut');
+  if(zi)zi.disabled=sketchupZoomScale>=SU_MAX;
+  if(zo)zo.disabled=sketchupZoomScale<=SU_MIN;
+}
+function sketchupResetZoom(){
+  sketchupZoomScale=1;
+  const img=sketchupGetActiveImg();
+  if(img)img.style.transform='scale(1)';
+  const scroll=document.getElementById('sketchupImgScroll');
+  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
+  document.getElementById('sketchupStage').classList.remove('zoomed');
+  sketchupUpdateZoomBtns();
+}
+function sketchupZoomStep(factor){
+  const img=sketchupGetActiveImg();if(!img)return;
+  sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*factor));
+  sketchupApplyZoom(img);
+  const scroll=document.getElementById('sketchupImgScroll');
+  scroll.classList.toggle('zoomed',sketchupZoomScale>1);
+  document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
+  sketchupUpdateZoomBtns();
+}
+function sketchupInitZoom(){
+  const scroll=document.getElementById('sketchupImgScroll');
+  if(!document.getElementById('sketchupZoomHint')){
+    const h=document.createElement('div');
+    h.className='revit-zoom-hint';h.id='sketchupZoomHint';
+    h.textContent='scroll \u00b7 click to zoom \u00b7 dbl-click to reset';
+    document.getElementById('sketchupStage').appendChild(h);
+  }
+  scroll.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const img=sketchupGetActiveImg();if(!img)return;
+    sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*(e.deltaY>0?0.85:1.18)));
+    sketchupApplyZoom(img);
+    scroll.classList.toggle('zoomed',sketchupZoomScale>1);
+    document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
+    sketchupUpdateZoomBtns();
+  },{passive:false});
+  scroll.addEventListener('click',e=>{
+    if(sketchupIsDragging)return;
+    if(sketchupZoomScale>1)return;
+    const img=sketchupGetActiveImg();if(!img)return;
+    if(sketchupZoomScale>=SU_MAX){sketchupResetZoom();return;}
+    sketchupZoomScale=Math.min(SU_MAX,sketchupZoomScale*1.8);
+    sketchupApplyZoom(img);
+    scroll.classList.toggle('zoomed',sketchupZoomScale>1);
+    document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
+    sketchupUpdateZoomBtns();
+  });
+  scroll.addEventListener('dblclick',e=>{e.preventDefault();sketchupResetZoom();});
+  scroll.addEventListener('mousedown',e=>{
+    if(sketchupZoomScale<=1)return;
+    e.preventDefault();sketchupIsDragging=false;
+    const sx=e.clientX+scroll.scrollLeft, sy=e.clientY+scroll.scrollTop;
+    scroll.classList.add('dragging');
+    document.getElementById('sketchupStage').classList.add('dragging');
+    const onMove=ev=>{sketchupIsDragging=true;scroll.scrollLeft=sx-ev.clientX;scroll.scrollTop=sy-ev.clientY;};
+    const onUp=()=>{scroll.classList.remove('dragging');document.getElementById('sketchupStage').classList.remove('dragging');setTimeout(()=>{sketchupIsDragging=false;},50);window.removeEventListener('mousemove',onMove);window.removeEventListener('mouseup',onUp);};
+    window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
+  });
+  let lastDist=0;
+  scroll.addEventListener('touchstart',e=>{
+    if(e.touches.length===2)lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  },{passive:true});
+  scroll.addEventListener('touchmove',e=>{
+    if(e.touches.length===2){
+      e.preventDefault();
+      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*(dist/lastDist)));
+      lastDist=dist;
+      const img=sketchupGetActiveImg();if(img)sketchupApplyZoom(img);
+      scroll.classList.toggle('zoomed',sketchupZoomScale>1);
+      sketchupUpdateZoomBtns();
+    }
+  },{passive:false});
+}
+function buildSketchupGallery(){
+  const scroll=document.getElementById('sketchupImgScroll');
+  const strip=document.getElementById('sketchupStrip');
+  let lastTag=null;
+  SKETCHUP_SLIDES.forEach((s,i)=>{
+    const img=document.createElement('img');
+    img.className='revit-stage-img'+(i===0?' active':'');
+    img.src=s.src;img.alt=s.caption;
+    img.onerror=function(){this.style.opacity='0.25';this.alt='Image unavailable: '+s.caption;};
+    scroll.appendChild(img);
+    if(s.tag!==lastTag){
+      const sec=document.createElement('div');
+      sec.className='revit-strip-section';
+      const sp=document.createElement('span');
+      sp.textContent=s.tag;sec.appendChild(sp);
+      strip.appendChild(sec);lastTag=s.tag;
+    }
+    const th=document.createElement('div');
+    th.className='revit-thumb'+(i===0?' active':'');
+    th.onclick=()=>sketchupGoTo(i);th.title=s.caption;
+    const ti=document.createElement('img');
+    ti.src=s.src;ti.alt=s.caption;th.appendChild(ti);
+    strip.appendChild(th);
+  });
+}
+function sketchupGoTo(idx){
+  sketchupResetZoom();
+  const scroll=document.getElementById('sketchupImgScroll');
+  if(scroll){scroll.scrollTop=0;scroll.scrollLeft=0;}
+  document.querySelectorAll('#sketchupImgScroll .revit-stage-img')[sketchupCur]?.classList.remove('active');
+  document.querySelectorAll('#sketchupStrip .revit-thumb')[sketchupCur]?.classList.remove('active');
+  sketchupCur=idx;
+  document.querySelectorAll('#sketchupImgScroll .revit-stage-img')[sketchupCur]?.classList.add('active');
+  const thumbs=document.querySelectorAll('#sketchupStrip .revit-thumb');
+  thumbs[sketchupCur]?.classList.add('active');
+  thumbs[sketchupCur]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  const s=SKETCHUP_SLIDES[sketchupCur];
+  document.getElementById('sketchupTag').textContent=s.tag;
+  document.getElementById('sketchupTitle').textContent=s.title;
+  document.getElementById('sketchupCounter').textContent=String(sketchupCur+1).padStart(2,'0')+' / '+String(SKETCHUP_SLIDES.length).padStart(2,'0');
+  document.getElementById('sketchupCaption').textContent=s.caption;
+  document.getElementById('sketchupPrev').disabled=sketchupCur===0;
+  document.getElementById('sketchupNext').disabled=sketchupCur===SKETCHUP_SLIDES.length-1;
+}
+function sketchupNav(dir){
+  const n=sketchupCur+dir;
+  if(n>=0&&n<SKETCHUP_SLIDES.length)sketchupGoTo(n);
+}
+function openSketchupGallery(){
+  if(!sketchupBuilt){buildSketchupGallery();sketchupInitZoom();sketchupBuilt=true;}
+  sketchupGoTo(0);
+  document.getElementById('sketchupModalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSketchupGallery(){
+  document.getElementById('sketchupModalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function sketchupOverlayClick(e){
+  if(e.target===document.getElementById('sketchupModalOverlay'))closeSketchupGallery();
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('sketchupModalOverlay').classList.contains('open'))return;
+  if(e.key==='ArrowRight')sketchupNav(1);
+  if(e.key==='ArrowLeft')sketchupNav(-1);
+  if(e.key==='Escape')closeSketchupGallery();
 });
 
 </script>
