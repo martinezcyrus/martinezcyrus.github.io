@@ -27,6 +27,10 @@
   --learning:#784212;--learning-bg:#FDF2E9;
 }
 html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 .avail-banner{background:var(--green);color:#fff;text-align:center;padding:0.55rem 1rem;font-size:0.78rem;font-weight:500;letter-spacing:0.06em;z-index:200;position:relative}
 .avail-banner span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#7DEFA1;margin-right:0.5rem;vertical-align:middle;animation:pulse 1.8s ease-in-out infinite}
@@ -173,6 +177,7 @@ section:nth-child(even){background:var(--white)}
 .portfolio-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--navy2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
 .portfolio-card:hover{border-color:var(--navy-mid);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .portfolio-card:hover::after{transform:scaleX(1)}
+.portfolio-card[onclick]:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .card-skill-tag{position:absolute;top:1rem;right:1rem;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid}
 .tag-proficient{background:var(--proficient-bg);color:var(--proficient);border-color:var(--navy-mid)}
 .tag-intermediate{background:var(--intermediate-bg);color:var(--intermediate);border-color:#A9DFBF}
@@ -185,6 +190,7 @@ section:nth-child(even){background:var(--white)}
 .card-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--soft);border:1px solid var(--rule);padding:0.18rem 0.5rem;border-radius:2px}
 .card-status{font-size:0.72rem;font-weight:600;color:var(--soft);letter-spacing:0.08em;display:inline-block;margin-top:0.5rem;font-style:italic}
 .card-status.learning{color:var(--navy);font-style:normal;background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px}
+.card-view-cta{color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem;font-size:0.72rem;font-weight:600;letter-spacing:0.08em}
 .skill-legend{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2.5rem;align-items:center}
 .skill-legend-label{font-size:0.72rem;font-weight:600;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-right:0.4rem}
 .legend-tag{font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:20px;border:1px solid}
@@ -228,7 +234,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
   section{padding:5rem 6vw}
   .hero-left{padding:6vw}
 }
-/* ── REVIT MODAL GALLERY ── */
+/* ── GALLERY MODALS ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(8,11,10,0.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:1rem;backdrop-filter:blur(6px)}
 .modal-overlay.open{opacity:1;pointer-events:all}
 .revit-modal{background:var(--white);width:100%;max-width:900px;max-height:92vh;display:flex;flex-direction:column;border-radius:2px;transform:translateY(20px) scale(0.985);transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
@@ -246,6 +252,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 .revit-image-stage.zoomed.dragging{cursor:grabbing}
 .revit-img-scroll{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;cursor:zoom-in;scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 .revit-img-scroll.zoomed{cursor:grab;align-items:flex-start;justify-content:flex-start}
+.revit-img-scroll.dragging{cursor:grabbing}
 .revit-stage-img{display:none;width:auto;height:auto;max-width:100%;max-height:60vh;transform-origin:top left;transition:transform 0.15s ease;user-select:none;-webkit-user-drag:none;flex-shrink:0}
 .revit-stage-img.active{display:block;animation:revitFade 0.25s ease}
 @keyframes revitFade{from{opacity:0}to{opacity:1}}
@@ -287,13 +294,13 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 .autocad-cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--navy2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
 .autocad-cat-card:hover{border-color:var(--navy-mid);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .autocad-cat-card:hover::after{transform:scaleX(1)}
+.autocad-cat-card:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .autocad-cat-icon{font-size:1.8rem;margin-bottom:0.8rem}
 .autocad-cat-name{font-size:0.95rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem}
 .autocad-cat-desc{font-size:0.78rem;color:var(--mid);font-weight:300;line-height:1.5;margin-bottom:0.6rem}
 .autocad-cat-count{font-size:0.68rem;font-weight:600;color:var(--navy);background:var(--navy-pale);padding:0.2rem 0.55rem;border-radius:2px;display:inline-block;font-family:monospace}
 .autocad-back-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;font-weight:600;color:var(--mid);background:none;border:1px solid var(--rule);border-radius:2px;padding:0.3rem 0.7rem;cursor:pointer;transition:all 0.18s;font-family:'Outfit',sans-serif;letter-spacing:0.04em;margin-right:0.5rem}
 .autocad-back-btn:hover{color:var(--navy);border-color:var(--navy);background:var(--navy-pale)}
-
 </style>
 </head>
 <body>
@@ -311,11 +318,11 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:0.8rem">
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
     <button class="panel-btn" onclick="openPanel()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       Quick View
     </button>
   </div>
@@ -332,9 +339,9 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- PANEL -->
 <div class="panel-overlay" id="overlay" onclick="closePanel()"></div>
-<div class="panel" id="panel">
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Quick view profile">
   <div class="panel-header">
-    <svg class="panel-bg" viewBox="0 0 380 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <svg class="panel-bg" viewBox="0 0 380 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <g stroke="#fff" stroke-width="0.7" fill="none">
         <line x1="0" y1="40" x2="380" y2="40"/><line x1="0" y1="80" x2="380" y2="80"/><line x1="0" y1="120" x2="380" y2="120"/><line x1="0" y1="160" x2="380" y2="160"/><line x1="0" y1="200" x2="380" y2="200"/>
         <line x1="50" y1="0" x2="50" y2="220"/><line x1="100" y1="0" x2="100" y2="220"/><line x1="150" y1="0" x2="150" y2="220"/><line x1="200" y1="0" x2="200" y2="220"/><line x1="250" y1="0" x2="250" y2="220"/><line x1="300" y1="0" x2="300" y2="220"/><line x1="350" y1="0" x2="350" y2="220"/>
@@ -344,7 +351,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <polygon points="160,100 170,120 160,140 150,120" stroke="#fff" stroke-width="1.5" fill="none"/>
       <polygon points="310,58 320,78 310,98 300,78" stroke="#fff" stroke-width="1.5" fill="none"/>
     </svg>
-    <button class="panel-close" onclick="closePanel()">✕</button>
+    <button class="panel-close" onclick="closePanel()" aria-label="Close panel">✕</button>
     <img src="assets/images/profile/profile.JPG" alt="Engr. Cyrus Jayson Martinez" class="panel-photo" onerror="this.style.display='none'">
     <div class="panel-name">Engr. Cyrus Jayson Martinez, RCE, RMP</div>
     <div class="panel-role">Civil Engineer · Master Plumber · Estimator & BIM Modeller</div>
@@ -379,7 +386,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 <!-- HERO -->
 <section class="hero" style="padding:0">
   <div class="hero-left">
-    <svg class="hero-left-bg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <svg class="hero-left-bg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g stroke="#1A5276" stroke-width="1" fill="none">
         <circle cx="200" cy="200" r="80" stroke-dasharray="6,4"/><circle cx="200" cy="200" r="130" stroke-dasharray="3,6"/><circle cx="200" cy="200" r="175" stroke-dasharray="2,8"/>
         <line x1="200" y1="70" x2="200" y2="20"/><line x1="280" y1="114" x2="315" y2="79"/><line x1="320" y1="200" x2="370" y2="200"/><line x1="280" y1="286" x2="315" y2="321"/><line x1="200" y1="330" x2="200" y2="380"/><line x1="120" y1="286" x2="85" y2="321"/><line x1="80" y1="200" x2="30" y2="200"/><line x1="120" y1="114" x2="85" y2="79"/>
@@ -400,7 +407,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     </div>
   </div>
   <div class="hero-right">
-    <svg class="hero-right-bg" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <svg class="hero-right-bg" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <g stroke="#1A5276" stroke-width="0.7" fill="none">
         <line x1="0" y1="100" x2="600" y2="100"/><line x1="0" y1="160" x2="600" y2="160"/><line x1="0" y1="220" x2="600" y2="220"/><line x1="0" y1="280" x2="600" y2="280"/><line x1="0" y1="340" x2="600" y2="340"/><line x1="0" y1="400" x2="600" y2="400"/><line x1="0" y1="460" x2="600" y2="460"/><line x1="0" y1="520" x2="600" y2="520"/><line x1="0" y1="580" x2="600" y2="580"/>
         <line x1="60" y1="0" x2="60" y2="700"/><line x1="120" y1="0" x2="120" y2="700"/><line x1="180" y1="0" x2="180" y2="700"/><line x1="240" y1="0" x2="240" y2="700"/><line x1="300" y1="0" x2="300" y2="700"/><line x1="360" y1="0" x2="360" y2="700"/><line x1="420" y1="0" x2="420" y2="700"/><line x1="480" y1="0" x2="480" y2="700"/><line x1="540" y1="0" x2="540" y2="700"/>
@@ -436,7 +443,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- ABOUT -->
 <section id="about">
-  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#1A5276" fill="none" opacity="0.045">
       <rect x="980" y="60" width="280" height="200" stroke-width="1.5"/><rect x="1000" y="80" width="240" height="160" stroke-dasharray="6,4"/>
       <line x1="980" y1="160" x2="1260" y2="160" stroke-width="0.8"/><line x1="1120" y1="60" x2="1120" y2="260" stroke-width="0.8"/>
@@ -491,7 +498,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <svg class="section-bg" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g opacity="0.045" stroke="#1A5276" fill="none">
       <line x1="700" y1="0" x2="700" y2="700" stroke-width="0.8"/><line x1="800" y1="0" x2="800" y2="700" stroke-width="0.8"/><line x1="900" y1="0" x2="900" y2="700" stroke-width="0.8"/><line x1="1000" y1="0" x2="1000" y2="700" stroke-width="0.8"/><line x1="1100" y1="0" x2="1100" y2="700" stroke-width="0.8"/><line x1="1200" y1="0" x2="1200" y2="700" stroke-width="0.8"/><line x1="1300" y1="0" x2="1300" y2="700" stroke-width="0.8"/>
       <rect x="720" y="70" width="280" height="24" rx="3" fill="#1A5276" opacity="0.5"/><rect x="720" y="112" width="400" height="24" rx="3" fill="#1A5276" opacity="0.35"/><rect x="820" y="154" width="220" height="24" rx="3" fill="#1A5276" opacity="0.4"/><rect x="740" y="196" width="360" height="24" rx="3" fill="#1A5276" opacity="0.3"/>
@@ -541,7 +548,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- FEATURED PROJECT -->
 <section id="featured">
-  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs><pattern id="featdots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.2" fill="#1A5276"/></pattern></defs>
     <rect width="1400" height="600" fill="url(#featdots)" opacity="0.04"/>
   </svg>
@@ -553,7 +560,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     </div>
     <div class="reveal">
       <div class="featured-card">
-        <svg class="featured-card-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <svg class="featured-card-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g stroke="#fff" stroke-width="0.8" fill="none">
             <line x1="0" y1="80" x2="800" y2="80"/><line x1="0" y1="160" x2="800" y2="160"/><line x1="0" y1="240" x2="800" y2="240"/><line x1="0" y1="320" x2="800" y2="320"/>
             <line x1="100" y1="0" x2="100" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/><line x1="300" y1="0" x2="300" y2="400"/><line x1="400" y1="0" x2="400" y2="400"/><line x1="500" y1="0" x2="500" y2="400"/><line x1="600" y1="0" x2="600" y2="400"/><line x1="700" y1="0" x2="700" y2="400"/>
@@ -594,7 +601,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- PORTFOLIO -->
 <section id="portfolio">
-  <svg class="section-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs><pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.4" fill="#1A5276"/></pattern></defs>
     <rect width="1400" height="800" fill="url(#dots)" opacity="0.06"/>
   </svg>
@@ -616,7 +623,23 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <div class="portfolio-category reveal">
       <div class="portfolio-category-title"><span>🏛️</span> BIM & Design</div>
       <div class="portfolio-grid">
-        <div class="portfolio-card" onclick="openRevitGallery()" style="cursor:pointer">
+        <div class="portfolio-card" onclick="openAutocadGallery()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAutocadGallery()}" tabindex="0" role="button" aria-label="Open AutoCAD drawings gallery" style="cursor:pointer">
+          <span class="card-skill-tag tag-proficient">Proficient</span>
+          <div class="card-icon">📐</div>
+          <div class="card-title">AutoCAD — Drawings Portfolio</div>
+          <div class="card-desc">Structural, plumbing & sanitary, and dewatering drawings across 20 projects in the Philippines, Guam, Marshall Islands, and KSA.</div>
+          <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Structural</span><span class="card-tag">Plumbing</span><span class="card-tag">Dewatering</span></div>
+          <span class="card-view-cta">↗ Click to view 3 categories · 66 drawings</span>
+        </div>
+        <div class="portfolio-card" onclick="openSketchupGallery()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSketchupGallery()}" tabindex="0" role="button" aria-label="Open SketchUp models gallery" style="cursor:pointer">
+          <span class="card-skill-tag tag-intermediate">Intermediate</span>
+          <div class="card-icon">🏗️</div>
+          <div class="card-title">SketchUp — 3D Building Models</div>
+          <div class="card-desc">3D building models across 5 projects — duplex apartment, residential houses, and structural detailing. Demonstrates building massing, spatial layout, and 3D model presentation.</div>
+          <div class="card-tags"><span class="card-tag">SketchUp</span><span class="card-tag">3D Modelling</span><span class="card-tag">Architectural</span></div>
+          <span class="card-view-cta">↗ Click to view 5 models</span>
+        </div>
+        <div class="portfolio-card" onclick="openRevitGallery()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openRevitGallery()}" tabindex="0" role="button" aria-label="Open Revit drawings gallery" style="cursor:pointer">
           <span class="card-skill-tag tag-familiar">Familiar</span>
           <div class="card-icon">🏛️</div>
           <div class="card-title">Revit — BIM Models & Design Portfolio</div>
@@ -624,29 +647,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
           <div class="card-tags">
             <span class="card-tag">Revit 2022</span><span class="card-tag">Architectural</span><span class="card-tag">Structural</span><span class="card-tag">3D Modelling</span><span class="card-tag">Thesis Project</span>
           </div>
-          <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
-            ↗ Click to view 22 drawings
-          </div>
-        </div>
-        <div class="portfolio-card" onclick="openAutocadGallery()" style="cursor:pointer">
-          <span class="card-skill-tag tag-proficient">Proficient</span>
-          <div class="card-icon">📐</div>
-          <div class="card-title">AutoCAD — Drawings Portfolio</div>
-          <div class="card-desc">Structural, plumbing & sanitary, and dewatering drawings across 20 projects in the Philippines, Guam, Marshall Islands, and KSA.</div>
-          <div class="card-tags"><span class="card-tag">AutoCAD</span><span class="card-tag">Structural</span><span class="card-tag">Plumbing</span><span class="card-tag">Dewatering</span></div>
-          <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
-            ↗ Click to view 3 categories · 66 drawings
-          </div>
-        </div>
-        <div class="portfolio-card" onclick="openSketchupGallery()" style="cursor:pointer">
-          <span class="card-skill-tag tag-intermediate">Intermediate</span>
-          <div class="card-icon">🏗️</div>
-          <div class="card-title">SketchUp — 3D Building Models</div>
-          <div class="card-desc">3D building models across 5 projects — duplex apartment, residential houses, and structural detailing. Demonstrates building massing, spatial layout, and 3D model presentation.</div>
-          <div class="card-tags"><span class="card-tag">SketchUp</span><span class="card-tag">3D Modelling</span><span class="card-tag">Architectural</span></div>
-          <div class="card-status" style="color:var(--navy);background:var(--navy-pale);padding:0.25rem 0.6rem;border-radius:2px;display:inline-block;font-style:normal;margin-top:0.5rem">
-            ↗ Click to view 5 models
-          </div>
+          <span class="card-view-cta">↗ Click to view 22 drawings</span>
         </div>
       </div>
     </div>
@@ -751,7 +752,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- SKILLS -->
 <section id="skills">
-  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#1A5276" fill="none" opacity="0.05">
       <circle cx="1200" cy="300" r="200" stroke-dasharray="8,6"/><circle cx="1200" cy="300" r="140" stroke-dasharray="5,5"/><circle cx="1200" cy="300" r="80" stroke-dasharray="3,4"/><circle cx="1200" cy="300" r="30"/>
       <line x1="1200" y1="100" x2="1200" y2="50"/><line x1="1341" y1="159" x2="1380" y2="125"/><line x1="1059" y1="159" x2="1020" y2="125"/>
@@ -774,10 +775,10 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
     <div class="skills-wrapper reveal">
       <div>
         <div class="skill-group-title">Engineering & Analysis</div>
+        <div class="skill-item"><span class="skill-item-name">Microsoft Excel (Advanced)</span><span class="skill-tag-inline tag-proficient">Proficient</span></div>
         <div class="skill-item"><span class="skill-item-name">SEEP/W</span><span class="skill-tag-inline tag-intermediate">Intermediate</span></div>
         <div class="skill-item"><span class="skill-item-name">STAAD.Pro Connect</span><span class="skill-tag-inline tag-intermediate">Intermediate</span></div>
         <div class="skill-item"><span class="skill-item-name">Mathcad</span><span class="skill-tag-inline tag-familiar">Familiar</span></div>
-        <div class="skill-item"><span class="skill-item-name">Microsoft Excel (Advanced)</span><span class="skill-tag-inline tag-proficient">Proficient</span></div>
       </div>
       <div>
         <div class="skill-group-title">Design, Drafting & BIM</div>
@@ -814,7 +815,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- HIGHLIGHTS -->
 <section id="highlights">
-  <svg class="section-bg" viewBox="0 0 1400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#1A5276" fill="none" opacity="0.05">
       <path d="M0 320 C200 300 400 220 700 240 C900 255 1100 190 1400 210" stroke-width="2.5"/>
       <circle cx="200" cy="300" r="8"/><circle cx="700" cy="240" r="8"/><circle cx="1100" cy="190" r="8"/>
@@ -840,7 +841,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- CONTACT -->
 <section id="contact">
-  <svg class="section-bg" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="section-bg" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#1A5276" fill="none" opacity="0.045">
       <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/><line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/>
       <circle cx="1150" cy="260" r="90" stroke-dasharray="6,4"/><circle cx="1150" cy="260" r="50" stroke-dasharray="4,3"/><circle cx="1150" cy="260" r="18"/>
@@ -872,7 +873,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- FOOTER -->
 <footer>
-  <svg class="footer-bg" viewBox="0 0 1400 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <svg class="footer-bg" viewBox="0 0 1400 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#1A5276" fill="none">
       <line x1="0" y1="30" x2="1400" y2="30"/><line x1="0" y1="60" x2="1400" y2="60"/>
       <line x1="100" y1="0" x2="100" y2="100"/><line x1="300" y1="0" x2="300" y2="100"/><line x1="500" y1="0" x2="500" y2="100"/><line x1="700" y1="0" x2="700" y2="100"/><line x1="900" y1="0" x2="900" y2="100"/><line x1="1100" y1="0" x2="1100" y2="100"/><line x1="1300" y1="0" x2="1300" y2="100"/>
@@ -884,7 +885,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- REVIT GALLERY MODAL -->
 <div class="modal-overlay" id="revitModalOverlay" onclick="revitOverlayClick(event)">
-  <div class="revit-modal" id="revitModal">
+  <div class="revit-modal" id="revitModal" role="dialog" aria-modal="true" aria-label="Revit drawings gallery">
     <div class="revit-modal-header">
       <div class="revit-modal-header-left">
         <div class="revit-modal-tag" id="revitTag">Thesis</div>
@@ -892,7 +893,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
       <div class="revit-modal-header-right">
         <span class="revit-modal-counter" id="revitCounter">01 / 22</span>
-        <button class="revit-modal-close" onclick="closeRevitGallery()" aria-label="Close">✕</button>
+        <button class="revit-modal-close" onclick="closeRevitGallery()" aria-label="Close gallery">✕</button>
       </div>
     </div>
     <div class="revit-image-stage" id="revitStage">
@@ -902,7 +903,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       <div class="revit-zoom-controls">
         <button class="revit-zoom-btn" id="revitZoomIn"  onclick="zoomStep(1.5)"  aria-label="Zoom in"    title="Zoom in">+</button>
         <button class="revit-zoom-btn" id="revitZoomOut" onclick="zoomStep(0.67)" aria-label="Zoom out"   title="Zoom out">−</button>
-        <button class="revit-zoom-btn" id="revitZoomReset" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+        <button class="revit-zoom-btn" onclick="resetZoom()"  aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
       </div>
     </div>
     <div class="revit-caption">
@@ -913,10 +914,9 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
   </div>
 </div>
 
-
 <!-- AUTOCAD GALLERY MODAL -->
 <div class="modal-overlay" id="autocadModalOverlay" onclick="autocadOverlayClick(event)">
-  <div class="revit-modal" id="autocadModal">
+  <div class="revit-modal" id="autocadModal" role="dialog" aria-modal="true" aria-label="AutoCAD drawings gallery">
     <div class="revit-modal-header">
       <div class="revit-modal-header-left">
         <div class="revit-modal-tag" id="autocadTag">AutoCAD</div>
@@ -924,25 +924,25 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
       <div class="revit-modal-header-right">
         <span class="revit-modal-counter" id="autocadCounter" style="display:none"></span>
-        <button class="revit-modal-close" onclick="closeAutocadGallery()" aria-label="Close">✕</button>
+        <button class="revit-modal-close" onclick="closeAutocadGallery()" aria-label="Close gallery">✕</button>
       </div>
     </div>
     <div class="autocad-category-screen" id="autocadCategoryScreen">
       <div class="autocad-category-title">Select a drawing category to view</div>
       <div class="autocad-cat-grid">
-        <div class="autocad-cat-card" onclick="openAutocadCategory('structural')">
+        <div class="autocad-cat-card" onclick="openAutocadCategory('structural')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAutocadCategory('structural')}" tabindex="0" role="button">
           <div class="autocad-cat-icon">🏗️</div>
           <div class="autocad-cat-name">Structural Drawings</div>
           <div class="autocad-cat-desc">Steel frames, foundation plans, framing plans, roof sheeting, and structural details across 13 projects in PH, Guam, and Marshall Islands.</div>
           <span class="autocad-cat-count">37 drawings · 13 projects</span>
         </div>
-        <div class="autocad-cat-card" onclick="openAutocadCategory('plumbing')">
+        <div class="autocad-cat-card" onclick="openAutocadCategory('plumbing')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAutocadCategory('plumbing')}" tabindex="0" role="button">
           <div class="autocad-cat-icon">🔧</div>
           <div class="autocad-cat-name">Plumbing & Sanitary</div>
           <div class="autocad-cat-desc">Complete plumbing plans, water supply layouts, drainage, and sanitary drawings across 6 projects including international work in Guam and Marshall Islands.</div>
           <span class="autocad-cat-count">29 drawings · 6 projects</span>
         </div>
-        <div class="autocad-cat-card" onclick="openAutocadCategory('dewatering')">
+        <div class="autocad-cat-card" onclick="openAutocadCategory('dewatering')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAutocadCategory('dewatering')}" tabindex="0" role="button">
           <div class="autocad-cat-icon">💧</div>
           <div class="autocad-cat-name">Dewatering Layout</div>
           <div class="autocad-cat-desc">Construction dewatering layout and cross-section for Sehat Al Saahil Hospital, Dammam, KSA.</div>
@@ -960,9 +960,9 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
         <button class="revit-nav-arrow prev" id="autocadPrev" onclick="autocadNav(-1)" aria-label="Previous">‹</button>
         <button class="revit-nav-arrow next" id="autocadNext" onclick="autocadNav(1)" aria-label="Next">›</button>
         <div class="revit-zoom-controls">
-          <button class="revit-zoom-btn" id="autocadZoomIn"  onclick="autocadZoomStep(1.5)"  title="Zoom in">+</button>
-          <button class="revit-zoom-btn" id="autocadZoomOut" onclick="autocadZoomStep(0.67)" title="Zoom out">−</button>
-          <button class="revit-zoom-btn" onclick="autocadResetZoom()" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
+          <button class="revit-zoom-btn" id="autocadZoomIn"  onclick="autocadZoomStep(1.5)"  aria-label="Zoom in"  title="Zoom in">+</button>
+          <button class="revit-zoom-btn" id="autocadZoomOut" onclick="autocadZoomStep(0.67)" aria-label="Zoom out" title="Zoom out">−</button>
+          <button class="revit-zoom-btn" onclick="autocadResetZoom()" aria-label="Reset zoom" title="Reset zoom" style="font-size:0.62rem;letter-spacing:-0.02em;">FIT</button>
         </div>
       </div>
       <div class="revit-caption">
@@ -976,7 +976,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 
 <!-- SKETCHUP GALLERY MODAL -->
 <div class="modal-overlay" id="sketchupModalOverlay" onclick="sketchupOverlayClick(event)">
-  <div class="revit-modal" id="sketchupModal">
+  <div class="revit-modal" id="sketchupModal" role="dialog" aria-modal="true" aria-label="SketchUp models gallery">
     <div class="revit-modal-header">
       <div class="revit-modal-header-left">
         <div class="revit-modal-tag" id="sketchupTag">Design 1</div>
@@ -984,7 +984,7 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
       </div>
       <div class="revit-modal-header-right">
         <span class="revit-modal-counter" id="sketchupCounter">01 / 05</span>
-        <button class="revit-modal-close" onclick="closeSketchupGallery()" aria-label="Close">✕</button>
+        <button class="revit-modal-close" onclick="closeSketchupGallery()" aria-label="Close gallery">✕</button>
       </div>
     </div>
     <div class="revit-image-stage" id="sketchupStage">
@@ -1006,46 +1006,317 @@ footer{text-align:center;padding:2.5rem 8vw;border-top:1px solid var(--rule);fon
 </div>
 
 <script>
-function openPanel(){document.getElementById('panel').classList.add('open');document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden'}
-function closePanel(){document.getElementById('panel').classList.remove('open');document.getElementById('overlay').classList.remove('open');document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePanel();if(document.getElementById('mobileMenu').classList.contains('open'))toggleMenu()}});
-function toggleMenu(){
-  const menu=document.getElementById('mobileMenu');
-  const burger=document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  burger.classList.toggle('open');
-}
-const reveals=document.querySelectorAll('.reveal');
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*90);ro.unobserve(e.target)}});
-},{threshold:0.08});
-reveals.forEach(el=>ro.observe(el));
-function animateCounter(el){
-  const target=parseFloat(el.dataset.target);
-  const decimal=el.dataset.decimal||'';
-  const duration=1800,steps=60,inc=target/steps;
-  let cur=0;
-  const t=setInterval(()=>{
-    cur+=inc;
-    if(cur>=target){el.textContent=target+decimal;clearInterval(t);}
-    else{el.textContent=Math.floor(cur)+(decimal&&cur>target*0.85?decimal:'');}
-  },duration/steps);
-}
-const co=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.querySelectorAll('.counter').forEach(animateCounter);co.unobserve(e.target);}
-  });
-},{threshold:0.3});
-document.querySelectorAll('.stats-grid,.highlights-grid').forEach(el=>co.observe(el));
-const secs=document.querySelectorAll('section[id]');
-const nls=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
-  nls.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-},{passive:true});
+'use strict';
+/* ════════════════════════════════════════════════════════════
+   SHARED HELPERS
+════════════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
 
-// ── REVIT GALLERY ──
+/* Body scroll lock — only unlocks when NO overlay/panel remains open,
+   so independent close handlers can never fight over it. */
+function lockScroll(){ document.body.style.overflow = 'hidden'; }
+function unlockScroll(){
+  const anyOpen = document.querySelector('.modal-overlay.open') ||
+                  $('panel').classList.contains('open');
+  if(!anyOpen) document.body.style.overflow = '';
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL + MOBILE MENU
+════════════════════════════════════════════════════════════ */
+let panelReturnFocus = null;
+function openPanel(){
+  panelReturnFocus = document.activeElement;
+  $('panel').classList.add('open');
+  $('overlay').classList.add('open');
+  lockScroll();
+  const c = $('panel').querySelector('.panel-close');
+  if(c) c.focus();
+}
+function closePanel(){
+  $('panel').classList.remove('open');
+  $('overlay').classList.remove('open');
+  unlockScroll();
+  if(panelReturnFocus && typeof panelReturnFocus.focus === 'function') panelReturnFocus.focus();
+  panelReturnFocus = null;
+}
+function toggleMenu(){
+  const menu = $('mobileMenu'), burger = $('hamburger');
+  const open = menu.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', String(open));
+}
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL REVEALS + COUNTERS (rAF-based; decimal shown only at end)
+════════════════════════════════════════════════════════════ */
+const reveals = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if(e.isIntersecting){
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+        ro.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.08});
+  reveals.forEach(el => ro.observe(el));
+}else{
+  reveals.forEach(el => el.classList.add('visible'));
+}
+
+function animateCounter(el){
+  const target  = parseFloat(el.dataset.target);
+  const decimal = el.dataset.decimal || '';
+  if(!Number.isFinite(target)){ el.textContent = el.dataset.target + decimal; return; }
+  const duration = 1600, start = performance.now();
+  function tick(now){
+    const p = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+    if(p >= 1){ el.textContent = target + decimal; return; }
+    el.textContent = Math.floor(target * eased);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+if('IntersectionObserver' in window){
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.counter').forEach(animateCounter);
+        co.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.3});
+  document.querySelectorAll('.stats-grid,.highlights-grid').forEach(el => co.observe(el));
+}else{
+  document.querySelectorAll('.counter').forEach(el => {
+    el.textContent = el.dataset.target + (el.dataset.decimal || '');
+  });
+}
+
+/* Active nav-link highlighting (rAF-throttled) */
+const secs = document.querySelectorAll('section[id]');
+const nls  = document.querySelectorAll('.nav-links a');
+let navTickPending = false;
+function updateActiveNav(){
+  navTickPending = false;
+  let cur = '';
+  secs.forEach(s => { if(window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  nls.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', () => {
+  if(!navTickPending){ navTickPending = true; requestAnimationFrame(updateActiveNav); }
+}, {passive: true});
+updateActiveNav();
+
+/* ════════════════════════════════════════════════════════════
+   UNIFIED ZOOM / PAN ENGINE
+   One implementation shared by all three galleries.
+   cfg: { scroll, stage, getImg, zoomIn, zoomOut, hintId }
+════════════════════════════════════════════════════════════ */
+function createZoom(cfg){
+  const MIN = 1, MAX = 5;
+  let scale = 1, dragging = false;
+  const scroll = cfg.scroll, stage = cfg.stage;
+
+  function img(){ return cfg.getImg(); }
+  function apply(){
+    const im = img();
+    if(im){ im.style.transform = 'scale(' + scale + ')'; im.style.transformOrigin = 'top left'; }
+  }
+  function sync(){
+    const z = scale > 1;
+    scroll.classList.toggle('zoomed', z);
+    stage.classList.toggle('zoomed', z);
+    if(cfg.zoomIn)  cfg.zoomIn.disabled  = scale >= MAX;
+    if(cfg.zoomOut) cfg.zoomOut.disabled = scale <= MIN;
+  }
+  function reset(){
+    scale = 1;
+    const im = img();
+    if(im) im.style.transform = 'scale(1)';
+    scroll.scrollTop = 0; scroll.scrollLeft = 0;
+    scroll.classList.remove('zoomed', 'dragging');
+    stage.classList.remove('zoomed', 'dragging');
+    sync();
+  }
+  function step(factor){
+    if(!img()) return;
+    scale = Math.max(MIN, Math.min(MAX, scale * factor));
+    apply(); sync();
+  }
+
+  // Zoom hint (created once)
+  if(cfg.hintId && !$(cfg.hintId)){
+    const h = document.createElement('div');
+    h.className = 'revit-zoom-hint';
+    h.id = cfg.hintId;
+    h.textContent = 'scroll \u00b7 click to zoom \u00b7 dbl-click to reset';
+    stage.appendChild(h);
+  }
+
+  // Mouse wheel zoom
+  scroll.addEventListener('wheel', e => {
+    if(!img()) return;
+    e.preventDefault();
+    scale = Math.max(MIN, Math.min(MAX, scale * (e.deltaY > 0 ? 0.85 : 1.18)));
+    apply(); sync();
+  }, {passive: false});
+
+  // Click to zoom in (only from fit; drag suppresses click)
+  scroll.addEventListener('click', () => {
+    if(dragging || scale > 1 || !img()) return;
+    scale = Math.min(MAX, scale * 1.8);
+    apply(); sync();
+  });
+
+  // Double-click resets
+  scroll.addEventListener('dblclick', e => { e.preventDefault(); reset(); });
+
+  // Drag to pan while zoomed
+  scroll.addEventListener('mousedown', e => {
+    if(scale <= 1) return;
+    e.preventDefault();
+    dragging = false;
+    const sx = e.clientX + scroll.scrollLeft, sy = e.clientY + scroll.scrollTop;
+    scroll.classList.add('dragging'); stage.classList.add('dragging');
+    const onMove = ev => { dragging = true; scroll.scrollLeft = sx - ev.clientX; scroll.scrollTop = sy - ev.clientY; };
+    const onUp = () => {
+      scroll.classList.remove('dragging'); stage.classList.remove('dragging');
+      setTimeout(() => { dragging = false; }, 50);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  });
+
+  // Pinch zoom on touch
+  let lastDist = 0;
+  scroll.addEventListener('touchstart', e => {
+    if(e.touches.length === 2){
+      lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY);
+    }
+  }, {passive: true});
+  scroll.addEventListener('touchmove', e => {
+    if(e.touches.length !== 2) return;
+    e.preventDefault();
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY);
+    if(lastDist > 0){
+      scale = Math.max(MIN, Math.min(MAX, scale * (dist / lastDist)));
+      apply(); sync();
+    }
+    lastDist = dist;
+  }, {passive: false});
+
+  return {reset, step};
+}
+
+/* ════════════════════════════════════════════════════════════
+   GALLERY FACTORY (used by Revit and SketchUp)
+   cfg: { slides, sub, ids:{overlay,tag,title,counter,caption,
+          scroll,strip,stage,prev,next,zoomIn,zoomOut}, hintId }
+════════════════════════════════════════════════════════════ */
+function createGallery(cfg){
+  const E = {};
+  Object.keys(cfg.ids).forEach(k => { E[k] = $(cfg.ids[k]); });
+  const slides = cfg.slides;
+  let cur = 0, built = false, returnFocus = null;
+
+  const zoom = createZoom({
+    scroll: E.scroll, stage: E.stage,
+    getImg: () => E.scroll.querySelector('.revit-stage-img.active'),
+    zoomIn: E.zoomIn, zoomOut: E.zoomOut, hintId: cfg.hintId
+  });
+
+  function build(){
+    const fragImgs = document.createDocumentFragment();
+    const fragStrip = document.createDocumentFragment();
+    let lastTag = null;
+    slides.forEach((s, i) => {
+      const img = document.createElement('img');
+      img.className = 'revit-stage-img' + (i === 0 ? ' active' : '');
+      img.src = s.src; img.alt = s.caption;
+      img.loading = 'lazy'; img.decoding = 'async';
+      img.onerror = function(){ this.style.opacity = '0.25'; this.alt = 'Image unavailable: ' + s.caption; };
+      fragImgs.appendChild(img);
+
+      if(s.tag !== lastTag){
+        const sec = document.createElement('div');
+        sec.className = 'revit-strip-section';
+        const sp = document.createElement('span');
+        sp.textContent = s.tag;
+        sec.appendChild(sp);
+        fragStrip.appendChild(sec);
+        lastTag = s.tag;
+      }
+      const th = document.createElement('div');
+      th.className = 'revit-thumb' + (i === 0 ? ' active' : '');
+      th.onclick = () => goTo(i);
+      th.title = s.caption;
+      const ti = document.createElement('img');
+      ti.src = s.src; ti.alt = s.caption;
+      ti.loading = 'lazy'; ti.decoding = 'async';
+      th.appendChild(ti);
+      fragStrip.appendChild(th);
+    });
+    E.scroll.appendChild(fragImgs);
+    E.strip.appendChild(fragStrip);
+  }
+
+  function goTo(idx){
+    if(idx < 0 || idx >= slides.length) return;
+    zoom.reset();
+    E.scroll.querySelectorAll('.revit-stage-img').forEach(el => el.classList.remove('active'));
+    E.strip.querySelectorAll('.revit-thumb').forEach(el => el.classList.remove('active'));
+    cur = idx;
+    const imgs = E.scroll.querySelectorAll('.revit-stage-img');
+    const thumbs = E.strip.querySelectorAll('.revit-thumb');
+    if(imgs[cur]) imgs[cur].classList.add('active');
+    if(thumbs[cur]){
+      thumbs[cur].classList.add('active');
+      thumbs[cur].scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    }
+    const s = slides[cur];
+    if(E.tag)   E.tag.textContent = s.tag;
+    if(E.title && s.title) E.title.textContent = s.title;
+    if(E.counter) E.counter.textContent =
+      String(cur + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    if(E.caption) E.caption.textContent = s.caption;
+    if(E.prev) E.prev.disabled = cur === 0;
+    if(E.next) E.next.disabled = cur === slides.length - 1;
+  }
+
+  function nav(dir){ goTo(cur + dir); }
+
+  function open(){
+    if(!built){ build(); built = true; }
+    returnFocus = document.activeElement;
+    goTo(0);
+    E.overlay.classList.add('open');
+    lockScroll();
+    const c = E.overlay.querySelector('.revit-modal-close');
+    if(c) c.focus();
+  }
+  function close(){
+    E.overlay.classList.remove('open');
+    unlockScroll();
+    if(returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
+    returnFocus = null;
+  }
+  function overlayClick(e){ if(e.target === E.overlay) close(); }
+  function isOpen(){ return E.overlay.classList.contains('open'); }
+
+  return {open, close, nav, goTo, overlayClick, isOpen,
+          resetZoom: zoom.reset, zoomStep: zoom.step};
+}
+
+/* ════════════════════════════════════════════════════════════
+   SLIDE DATA
+════════════════════════════════════════════════════════════ */
 const REVIT_SLIDES = [
   {src:'assets/images/portfolio/revit/thesis-architectural.png', caption:'Thesis — 3D Architectural View',       project:'Thesis Project',           tag:'Thesis',   title:'6-Level Building'},
   {src:'assets/images/portfolio/revit/thesis-structural.png',    caption:'Thesis — Structural Framing Model',    project:'Thesis Project',           tag:'Thesis',   title:'Structural Frame'},
@@ -1070,192 +1341,15 @@ const REVIT_SLIDES = [
   {src:'assets/images/portfolio/revit/design3-longitudinal.jpg', caption:'Longitudinal Section',                 project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
   {src:'assets/images/portfolio/revit/design3-doors-windows.jpg',caption:'Door & Window Schedule',               project:'Design 3 — 5-Storey Bldg', tag:'Design 3', title:'Commercial Building'},
 ];
-let revitCur=0, revitBuilt=false;
 
-// ── ZOOM STATE ──
-let zoomScale=1;
-let isDragging=false;
-const MIN_ZOOM=1, MAX_ZOOM=5;
+const SKETCHUP_SLIDES = [
+  {src:'assets/images/portfolio/sketchup/design1-3d.jpg', caption:'3D Model — 2-Storey Duplex Apartment', tag:'Design 1', title:'Duplex Apartment'},
+  {src:'assets/images/portfolio/sketchup/design2-3d.jpg', caption:'3D Model — 2-Storey Residential House', tag:'Design 2', title:'Residential House'},
+  {src:'assets/images/portfolio/sketchup/design3-3d.jpg', caption:'3D Model — 2-Storey Residential House', tag:'Design 3', title:'Residential House'},
+  {src:'assets/images/portfolio/sketchup/design4-3d.jpg', caption:'Strap Footing Detailing & 3D Model',    tag:'Design 4', title:'Strap Footing Detail'},
+  {src:'assets/images/portfolio/sketchup/design5-3d.jpg', caption:'3D Model — 3-Storey Residential House', tag:'Design 5', title:'Residential House'},
+];
 
-function getActiveImg(){return document.querySelector('#revitImgScroll .revit-stage-img.active')}
-
-function applyZoom(img){
-  img.style.transform=`scale(${zoomScale})`;
-  img.style.transformOrigin='top left';
-}
-
-function updateZoomBtns(){
-  const zi=document.getElementById('revitZoomIn');
-  const zo=document.getElementById('revitZoomOut');
-  if(zi)zi.disabled=zoomScale>=MAX_ZOOM;
-  if(zo)zo.disabled=zoomScale<=MIN_ZOOM;
-}
-
-function resetZoom(){
-  zoomScale=1;
-  const img=getActiveImg();
-  if(img){img.style.transform='scale(1)';}
-  const scroll=document.getElementById('revitImgScroll');
-  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
-  document.getElementById('revitStage').classList.remove('zoomed');
-  updateZoomBtns();
-}
-
-function zoomStep(factor){
-  const img=getActiveImg();if(!img)return;
-  zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*factor));
-  applyZoom(img);
-  const scroll=document.getElementById('revitImgScroll');
-  scroll.classList.toggle('zoomed',zoomScale>1);
-  document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
-  updateZoomBtns();
-}
-
-function initZoom(){
-  const scroll=document.getElementById('revitImgScroll');
-  if(!document.getElementById('revitZoomHint')){
-    const h=document.createElement('div');
-    h.className='revit-zoom-hint';h.id='revitZoomHint';
-    h.textContent='scroll \u00b7 click to zoom \u00b7 dbl-click to reset';
-    document.getElementById('revitStage').appendChild(h);
-  }
-  scroll.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const img=getActiveImg();if(!img)return;
-    zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*(e.deltaY>0?0.85:1.18)));
-    applyZoom(img);
-    scroll.classList.toggle('zoomed',zoomScale>1);
-    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
-    updateZoomBtns();
-  },{passive:false});
-  scroll.addEventListener('click',e=>{
-    if(isDragging)return;
-    if(zoomScale>1)return;
-    const img=getActiveImg();if(!img)return;
-    if(zoomScale>=MAX_ZOOM){resetZoom();return;}
-    zoomScale=Math.min(MAX_ZOOM,zoomScale*1.8);
-    applyZoom(img);
-    scroll.classList.toggle('zoomed',zoomScale>1);
-    document.getElementById('revitStage').classList.toggle('zoomed',zoomScale>1);
-    updateZoomBtns();
-  });
-  scroll.addEventListener('dblclick',e=>{e.preventDefault();resetZoom();});
-  scroll.addEventListener('mousedown',e=>{
-    if(zoomScale<=1)return;
-    e.preventDefault();
-    isDragging=false;
-    const startX=e.clientX+scroll.scrollLeft;
-    const startY=e.clientY+scroll.scrollTop;
-    scroll.classList.add('dragging');
-    document.getElementById('revitStage').classList.add('dragging');
-    const onMove=ev=>{
-      isDragging=true;
-      scroll.scrollLeft=startX-ev.clientX;
-      scroll.scrollTop=startY-ev.clientY;
-    };
-    const onUp=()=>{
-      scroll.classList.remove('dragging');
-      document.getElementById('revitStage').classList.remove('dragging');
-      setTimeout(()=>{isDragging=false;},50);
-      window.removeEventListener('mousemove',onMove);
-      window.removeEventListener('mouseup',onUp);
-    };
-    window.addEventListener('mousemove',onMove);
-    window.addEventListener('mouseup',onUp);
-  });
-  let lastDist=0;
-  scroll.addEventListener('touchstart',e=>{
-    if(e.touches.length===2)
-      lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-  },{passive:true});
-  scroll.addEventListener('touchmove',e=>{
-    if(e.touches.length===2){
-      e.preventDefault();
-      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      zoomScale=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoomScale*(dist/lastDist)));
-      lastDist=dist;
-      const img=getActiveImg();if(img)applyZoom(img);
-      scroll.classList.toggle('zoomed',zoomScale>1);
-      updateZoomBtns();
-    }
-  },{passive:false});
-}
-
-function buildRevitGallery(){
-  const scroll=document.getElementById('revitImgScroll');
-  const strip=document.getElementById('revitStrip');
-  let lastTag=null;
-  REVIT_SLIDES.forEach((s,i)=>{
-    const img=document.createElement('img');
-    img.className='revit-stage-img'+(i===0?' active':'');
-    img.src=s.src;img.alt=s.caption;
-    img.onerror=function(){this.style.opacity='0.25';this.alt='Image unavailable: '+s.caption;};
-    scroll.appendChild(img);
-    if(s.tag!==lastTag){
-      const sec=document.createElement('div');
-      sec.className='revit-strip-section';
-      const sp=document.createElement('span');
-      sp.textContent=s.tag;sec.appendChild(sp);
-      strip.appendChild(sec);lastTag=s.tag;
-    }
-    const th=document.createElement('div');
-    th.className='revit-thumb'+(i===0?' active':'');
-    th.onclick=()=>revitGoTo(i);th.title=s.caption;
-    const ti=document.createElement('img');
-    ti.src=s.src;ti.alt=s.caption;th.appendChild(ti);
-    strip.appendChild(th);
-  });
-}
-
-function revitGoTo(idx){
-  resetZoom();
-  const scroll=document.getElementById('revitImgScroll');
-  if(scroll){scroll.scrollTop=0;scroll.scrollLeft=0;}
-  document.querySelectorAll('#revitImgScroll .revit-stage-img')[revitCur]?.classList.remove('active');
-  document.querySelectorAll('#revitStrip .revit-thumb')[revitCur]?.classList.remove('active');
-  revitCur=idx;
-  document.querySelectorAll('#revitImgScroll .revit-stage-img')[revitCur]?.classList.add('active');
-  const thumbs=document.querySelectorAll('#revitStrip .revit-thumb');
-  thumbs[revitCur]?.classList.add('active');
-  thumbs[revitCur]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-  const s=REVIT_SLIDES[revitCur];
-  document.getElementById('revitTag').textContent=s.tag;
-  document.getElementById('revitTitle').textContent=s.title;
-  document.getElementById('revitCounter').textContent=String(revitCur+1).padStart(2,'0')+' / '+String(REVIT_SLIDES.length).padStart(2,'0');
-  document.getElementById('revitCaption').textContent=s.caption;
-  document.getElementById('revitPrev').disabled=revitCur===0;
-  document.getElementById('revitNext').disabled=revitCur===REVIT_SLIDES.length-1;
-}
-
-function revitNav(dir){
-  const n=revitCur+dir;
-  if(n>=0&&n<REVIT_SLIDES.length)revitGoTo(n);
-}
-
-function openRevitGallery(){
-  if(!revitBuilt){buildRevitGallery();initZoom();revitBuilt=true;}
-  revitGoTo(0);
-  document.getElementById('revitModalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeRevitGallery(){
-  document.getElementById('revitModalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-function revitOverlayClick(e){
-  if(e.target===document.getElementById('revitModalOverlay'))closeRevitGallery();
-}
-
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('revitModalOverlay').classList.contains('open'))return;
-  if(e.key==='ArrowRight')revitNav(1);
-  if(e.key==='ArrowLeft')revitNav(-1);
-  if(e.key==='Escape')closeRevitGallery();
-});
-
-// ── AUTOCAD GALLERY ──
 const AUTOCAD_SLIDES = {
   structural: [
   {src:'assets/images/portfolio/autocad/structural/design1-p1.jpg', caption:'Steel Frame Schedule — Pre-Engineered Warehouse, Guam', tag:'Design 1'},
@@ -1331,346 +1425,200 @@ const AUTOCAD_SLIDES = {
   ],
 };
 
-let autocadCur=0, autocadActiveCategory=null;
-let autocadBuilt={structural:false,plumbing:false,dewatering:false};
-let autocadZoomScale=1, autocadIsDragging=false, autocadZoomInitDone=false;
-const AC_MIN=1, AC_MAX=5;
+/* ════════════════════════════════════════════════════════════
+   REVIT + SKETCHUP GALLERIES (factory instances)
+════════════════════════════════════════════════════════════ */
+const revitGallery = createGallery({
+  slides: REVIT_SLIDES,
+  hintId: 'revitZoomHint',
+  ids: {
+    overlay:'revitModalOverlay', tag:'revitTag', title:'revitTitle',
+    counter:'revitCounter', caption:'revitCaption',
+    scroll:'revitImgScroll', strip:'revitStrip', stage:'revitStage',
+    prev:'revitPrev', next:'revitNext',
+    zoomIn:'revitZoomIn', zoomOut:'revitZoomOut'
+  }
+});
+function openRevitGallery(){ revitGallery.open(); }
+function closeRevitGallery(){ revitGallery.close(); }
+function revitNav(dir){ revitGallery.nav(dir); }
+function revitOverlayClick(e){ revitGallery.overlayClick(e); }
+function zoomStep(f){ revitGallery.zoomStep(f); }
+function resetZoom(){ revitGallery.resetZoom(); }
+
+const sketchupGallery = createGallery({
+  slides: SKETCHUP_SLIDES,
+  hintId: 'sketchupZoomHint',
+  ids: {
+    overlay:'sketchupModalOverlay', tag:'sketchupTag', title:'sketchupTitle',
+    counter:'sketchupCounter', caption:'sketchupCaption',
+    scroll:'sketchupImgScroll', strip:'sketchupStrip', stage:'sketchupStage',
+    prev:'sketchupPrev', next:'sketchupNext',
+    zoomIn:'sketchupZoomIn', zoomOut:'sketchupZoomOut'
+  }
+});
+function openSketchupGallery(){ sketchupGallery.open(); }
+function closeSketchupGallery(){ sketchupGallery.close(); }
+function sketchupNav(dir){ sketchupGallery.nav(dir); }
+function sketchupOverlayClick(e){ sketchupGallery.overlayClick(e); }
+function sketchupZoomStep(f){ sketchupGallery.zoomStep(f); }
+function sketchupResetZoom(){ sketchupGallery.resetZoom(); }
+
+/* ════════════════════════════════════════════════════════════
+   AUTOCAD GALLERY (category picker + shared zoom engine)
+════════════════════════════════════════════════════════════ */
+const AUTOCAD_LABELS = {structural:'Structural Drawings', plumbing:'Plumbing & Sanitary', dewatering:'Dewatering Layout'};
+const AUTOCAD_TAGS   = {structural:'Structural', plumbing:'Plumbing', dewatering:'Dewatering'};
+let autocadCur = 0, autocadActiveCategory = null, autocadReturnFocus = null;
+const autocadBuilt = {structural:false, plumbing:false, dewatering:false};
+
+const autocadZoom = createZoom({
+  scroll: $('autocadImgScroll'), stage: $('autocadStage'),
+  getImg: () => autocadActiveCategory
+    ? document.querySelector('#autocadImgScroll .revit-stage-img.active[data-category="' + autocadActiveCategory + '"]')
+    : null,
+  zoomIn: $('autocadZoomIn'), zoomOut: $('autocadZoomOut'),
+  hintId: 'autocadZoomHint'
+});
+function autocadZoomStep(f){ autocadZoom.step(f); }
+function autocadResetZoom(){ autocadZoom.reset(); }
+
+function autocadIsOpen(){ return $('autocadModalOverlay').classList.contains('open'); }
+function autocadGalleryVisible(){ return $('autocadGalleryScreen').style.display !== 'none'; }
 
 function openAutocadGallery(){
-  document.getElementById('autocadCategoryScreen').style.display='flex';
-  document.getElementById('autocadGalleryScreen').style.display='none';
-  document.getElementById('autocadCounter').style.display='none';
-  document.getElementById('autocadTag').textContent='AutoCAD';
-  document.getElementById('autocadTitle').textContent='Drawings Portfolio';
-  document.getElementById('autocadModalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  autocadReturnFocus = document.activeElement;
+  autocadShowCategoryScreen();
+  $('autocadModalOverlay').classList.add('open');
+  lockScroll();
+  const c = $('autocadModal').querySelector('.revit-modal-close');
+  if(c) c.focus();
 }
 function closeAutocadGallery(){
-  document.getElementById('autocadModalOverlay').classList.remove('open');
-  document.body.style.overflow='';
+  $('autocadModalOverlay').classList.remove('open');
+  unlockScroll();
+  if(autocadReturnFocus && typeof autocadReturnFocus.focus === 'function') autocadReturnFocus.focus();
+  autocadReturnFocus = null;
 }
 function autocadOverlayClick(e){
-  if(e.target===document.getElementById('autocadModalOverlay'))closeAutocadGallery();
+  if(e.target === $('autocadModalOverlay')) closeAutocadGallery();
 }
-function autocadBackToCategories(){
-  // Hide ALL autocad images & thumbs regardless of category so nothing leaks into the next view.
-  document.querySelectorAll('#autocadImgScroll .revit-stage-img').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('#autocadStrip .revit-thumb').forEach(el=>el.classList.remove('active'));
-  document.getElementById('autocadCategoryScreen').style.display='flex';
-  document.getElementById('autocadGalleryScreen').style.display='none';
-  document.getElementById('autocadCounter').style.display='none';
-  document.getElementById('autocadTag').textContent='AutoCAD';
-  document.getElementById('autocadTitle').textContent='Drawings Portfolio';
+function autocadShowCategoryScreen(){
+  // Clear ALL active images/thumbs so nothing leaks between categories.
+  document.querySelectorAll('#autocadImgScroll .revit-stage-img').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('#autocadStrip .revit-thumb').forEach(el => el.classList.remove('active'));
+  autocadActiveCategory = null;
+  $('autocadCategoryScreen').style.display = 'flex';
+  $('autocadGalleryScreen').style.display = 'none';
+  $('autocadCounter').style.display = 'none';
+  $('autocadTag').textContent = 'AutoCAD';
+  $('autocadTitle').textContent = 'Drawings Portfolio';
 }
+function autocadBackToCategories(){ autocadShowCategoryScreen(); }
+
 function openAutocadCategory(category){
-  autocadActiveCategory=category;
-  const labels={structural:'Structural Drawings',plumbing:'Plumbing & Sanitary',dewatering:'Dewatering Layout'};
-  const tags={structural:'Structural',plumbing:'Plumbing',dewatering:'Dewatering'};
-  document.getElementById('autocadCategoryScreen').style.display='none';
-  const gs=document.getElementById('autocadGalleryScreen');
-  gs.style.display='flex';gs.style.flexDirection='column';gs.style.overflow='hidden';gs.style.flex='1';
-  document.getElementById('autocadTag').textContent=tags[category];
-  document.getElementById('autocadTitle').textContent=labels[category];
-  document.getElementById('autocadCounter').style.display='inline';
-  document.getElementById('autocadGalleryLabel').textContent=labels[category];
-  if(!autocadBuilt[category]){autocadBuildGallery(category);autocadBuilt[category]=true;}
-  if(!autocadZoomInitDone){autocadInitZoom();autocadZoomInitDone=true;}
-  // Hide thumbnails belonging to other categories; show only this category's thumbs.
-  document.querySelectorAll('#autocadStrip .revit-thumb, #autocadStrip .revit-strip-section').forEach(el=>{
-    el.style.display = (el.dataset.category===category) ? '' : 'none';
+  if(!AUTOCAD_SLIDES[category]) return;
+  autocadActiveCategory = category;
+  $('autocadCategoryScreen').style.display = 'none';
+  const gs = $('autocadGalleryScreen');
+  gs.style.display = 'flex';
+  gs.style.flexDirection = 'column';
+  gs.style.overflow = 'hidden';
+  gs.style.flex = '1';
+  $('autocadTag').textContent = AUTOCAD_TAGS[category];
+  $('autocadTitle').textContent = AUTOCAD_LABELS[category];
+  $('autocadCounter').style.display = 'inline';
+  $('autocadGalleryLabel').textContent = AUTOCAD_LABELS[category];
+  if(!autocadBuilt[category]){ autocadBuildGallery(category); autocadBuilt[category] = true; }
+  // Show only this category's thumbnails and section markers.
+  document.querySelectorAll('#autocadStrip .revit-thumb, #autocadStrip .revit-strip-section').forEach(el => {
+    el.style.display = (el.dataset.category === category) ? '' : 'none';
   });
   autocadGoTo(0);
 }
 function autocadBuildGallery(category){
-  const scroll=document.getElementById('autocadImgScroll');
-  const strip=document.getElementById('autocadStrip');
-  const slides=AUTOCAD_SLIDES[category];
-  let lastTag=null;
-  slides.forEach((s,i)=>{
-    const img=document.createElement('img');
-    img.className='revit-stage-img';
-    img.dataset.category=category;img.dataset.index=i;
-    img.src=s.src;img.alt=s.caption;
-    img.onerror=function(){this.style.opacity='0.25';this.alt='Image unavailable: '+s.caption;};
-    scroll.appendChild(img);
-    if(s.tag!==lastTag){
-      const sec=document.createElement('div');
-      sec.className='revit-strip-section';
-      const sp=document.createElement('span');
-      sp.textContent=s.tag;sec.appendChild(sp);
-      sec.dataset.category=category;
-      strip.appendChild(sec);lastTag=s.tag;
+  const scroll = $('autocadImgScroll');
+  const strip  = $('autocadStrip');
+  const fragImgs = document.createDocumentFragment();
+  const fragStrip = document.createDocumentFragment();
+  let lastTag = null;
+  AUTOCAD_SLIDES[category].forEach((s, i) => {
+    const img = document.createElement('img');
+    img.className = 'revit-stage-img';
+    img.dataset.category = category; img.dataset.index = i;
+    img.src = s.src; img.alt = s.caption;
+    img.loading = 'lazy'; img.decoding = 'async';
+    img.onerror = function(){ this.style.opacity = '0.25'; this.alt = 'Image unavailable: ' + s.caption; };
+    fragImgs.appendChild(img);
+    if(s.tag !== lastTag){
+      const sec = document.createElement('div');
+      sec.className = 'revit-strip-section';
+      sec.dataset.category = category;
+      const sp = document.createElement('span');
+      sp.textContent = s.tag;
+      sec.appendChild(sp);
+      fragStrip.appendChild(sec);
+      lastTag = s.tag;
     }
-    const th=document.createElement('div');
-    th.className='revit-thumb';
-    th.dataset.category=category;th.dataset.index=i;
-    th.onclick=()=>autocadGoTo(i);th.title=s.caption;
-    const ti=document.createElement('img');
-    ti.src=s.src;ti.alt=s.caption;th.appendChild(ti);
-    strip.appendChild(th);
+    const th = document.createElement('div');
+    th.className = 'revit-thumb';
+    th.dataset.category = category; th.dataset.index = i;
+    th.onclick = () => autocadGoTo(i);
+    th.title = s.caption;
+    const ti = document.createElement('img');
+    ti.src = s.src; ti.alt = s.caption;
+    ti.loading = 'lazy'; ti.decoding = 'async';
+    th.appendChild(ti);
+    fragStrip.appendChild(th);
   });
-}
-function autocadGetActiveImg(){
-  return document.querySelector('#autocadImgScroll .revit-stage-img.active[data-category="'+autocadActiveCategory+'"]');
-}
-function autocadApplyZoom(img){img.style.transform='scale('+autocadZoomScale+')';img.style.transformOrigin='top left';}
-function autocadResetZoom(){
-  autocadZoomScale=1;
-  const img=autocadGetActiveImg();
-  if(img)img.style.transform='scale(1)';
-  const scroll=document.getElementById('autocadImgScroll');
-  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
-  document.getElementById('autocadStage').classList.remove('zoomed');
-  const zi=document.getElementById('autocadZoomIn'),zo=document.getElementById('autocadZoomOut');
-  if(zi)zi.disabled=false;if(zo)zo.disabled=true;
-}
-function autocadZoomStep(factor){
-  const img=autocadGetActiveImg();if(!img)return;
-  autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*factor));
-  autocadApplyZoom(img);
-  const scroll=document.getElementById('autocadImgScroll');
-  scroll.classList.toggle('zoomed',autocadZoomScale>1);
-  document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
-  const zi=document.getElementById('autocadZoomIn'),zo=document.getElementById('autocadZoomOut');
-  if(zi)zi.disabled=autocadZoomScale>=AC_MAX;if(zo)zo.disabled=autocadZoomScale<=AC_MIN;
-}
-function autocadInitZoom(){
-  const scroll=document.getElementById('autocadImgScroll');
-  scroll.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const img=autocadGetActiveImg();if(!img)return;
-    autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*(e.deltaY>0?0.85:1.18)));
-    autocadApplyZoom(img);
-    scroll.classList.toggle('zoomed',autocadZoomScale>1);
-    document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
-  },{passive:false});
-  scroll.addEventListener('click',e=>{
-    if(autocadIsDragging)return;
-    if(autocadZoomScale>1)return;
-    const img=autocadGetActiveImg();if(!img)return;
-    autocadZoomScale=Math.min(AC_MAX,autocadZoomScale*1.8);
-    autocadApplyZoom(img);
-    scroll.classList.toggle('zoomed',autocadZoomScale>1);
-    document.getElementById('autocadStage').classList.toggle('zoomed',autocadZoomScale>1);
-  });
-  scroll.addEventListener('dblclick',e=>{e.preventDefault();autocadResetZoom();});
-  scroll.addEventListener('mousedown',e=>{
-    if(autocadZoomScale<=1)return;
-    e.preventDefault();autocadIsDragging=false;
-    const sx=e.clientX+scroll.scrollLeft, sy=e.clientY+scroll.scrollTop;
-    scroll.classList.add('dragging');
-    const onMove=ev=>{autocadIsDragging=true;scroll.scrollLeft=sx-ev.clientX;scroll.scrollTop=sy-ev.clientY;};
-    const onUp=()=>{scroll.classList.remove('dragging');setTimeout(()=>{autocadIsDragging=false;},50);window.removeEventListener('mousemove',onMove);window.removeEventListener('mouseup',onUp);};
-    window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
-  });
-  let lastDist=0;
-  scroll.addEventListener('touchstart',e=>{
-    if(e.touches.length===2)lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-  },{passive:true});
-  scroll.addEventListener('touchmove',e=>{
-    if(e.touches.length===2){
-      e.preventDefault();
-      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      autocadZoomScale=Math.max(AC_MIN,Math.min(AC_MAX,autocadZoomScale*(dist/lastDist)));
-      lastDist=dist;
-      const img=autocadGetActiveImg();if(img)autocadApplyZoom(img);
-      scroll.classList.toggle('zoomed',autocadZoomScale>1);
-    }
-  },{passive:false});
+  scroll.appendChild(fragImgs);
+  strip.appendChild(fragStrip);
 }
 function autocadGoTo(idx){
-  autocadResetZoom();
-  const scroll=document.getElementById('autocadImgScroll');
-  if(scroll){scroll.scrollTop=0;scroll.scrollLeft=0;}
-  const slides=AUTOCAD_SLIDES[autocadActiveCategory];
-  // Clear active state from EVERY autocad image/thumb (all categories) before activating the new one.
-  document.querySelectorAll('#autocadImgScroll .revit-stage-img').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('#autocadStrip .revit-thumb').forEach(el=>el.classList.remove('active'));
-  autocadCur=idx;
-  const imgs=document.querySelectorAll('#autocadImgScroll .revit-stage-img[data-category="'+autocadActiveCategory+'"]');
-  const thumbs=document.querySelectorAll('#autocadStrip .revit-thumb[data-category="'+autocadActiveCategory+'"]');
-  imgs[idx]?.classList.add('active');
-  thumbs[idx]?.classList.add('active');
-  thumbs[idx]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-  const s=slides[idx];
-  document.getElementById('autocadTag').textContent=s.tag;
-  document.getElementById('autocadCounter').textContent=String(idx+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
-  document.getElementById('autocadCaption').textContent=s.caption;
-  document.getElementById('autocadPrev').disabled=idx===0;
-  document.getElementById('autocadNext').disabled=idx===slides.length-1;
+  const slides = autocadActiveCategory ? AUTOCAD_SLIDES[autocadActiveCategory] : null;
+  if(!slides || idx < 0 || idx >= slides.length) return;
+  autocadZoom.reset();
+  document.querySelectorAll('#autocadImgScroll .revit-stage-img').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('#autocadStrip .revit-thumb').forEach(el => el.classList.remove('active'));
+  autocadCur = idx;
+  const imgs   = document.querySelectorAll('#autocadImgScroll .revit-stage-img[data-category="' + autocadActiveCategory + '"]');
+  const thumbs = document.querySelectorAll('#autocadStrip .revit-thumb[data-category="' + autocadActiveCategory + '"]');
+  if(imgs[idx]) imgs[idx].classList.add('active');
+  if(thumbs[idx]){
+    thumbs[idx].classList.add('active');
+    thumbs[idx].scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+  }
+  const s = slides[idx];
+  $('autocadTag').textContent = s.tag;
+  $('autocadCounter').textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+  $('autocadCaption').textContent = s.caption;
+  $('autocadPrev').disabled = idx === 0;
+  $('autocadNext').disabled = idx === slides.length - 1;
 }
 function autocadNav(dir){
-  const slides=AUTOCAD_SLIDES[autocadActiveCategory];
-  const n=autocadCur+dir;
-  if(n>=0&&n<slides.length)autocadGoTo(n);
+  if(!autocadActiveCategory) return; // guard: no nav from the category-picker screen
+  autocadGoTo(autocadCur + dir);
 }
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('autocadModalOverlay').classList.contains('open'))return;
-  if(e.key==='ArrowRight')autocadNav(1);
-  if(e.key==='ArrowLeft')autocadNav(-1);
-  if(e.key==='Escape')closeAutocadGallery();
-});
 
-// ── SKETCHUP GALLERY ──
-const SKETCHUP_SLIDES = [
-  {src:'assets/images/portfolio/sketchup/design1-3d.jpg', caption:'3D Model — 2-Storey Duplex Apartment',          tag:'Design 1', title:'Duplex Apartment'},
-  {src:'assets/images/portfolio/sketchup/design2-3d.jpg', caption:'3D Model — 2-Storey Residential House',          tag:'Design 2', title:'Residential House'},
-  {src:'assets/images/portfolio/sketchup/design3-3d.jpg', caption:'3D Model — 2-Storey Residential House',          tag:'Design 3', title:'Residential House'},
-  {src:'assets/images/portfolio/sketchup/design4-3d.jpg', caption:'Strap Footing Detailing & 3D Model',             tag:'Design 4', title:'Strap Footing Detail'},
-  {src:'assets/images/portfolio/sketchup/design5-3d.jpg', caption:'3D Model — 3-Storey Residential House',          tag:'Design 5', title:'Residential House'},
-];
-let sketchupCur=0, sketchupBuilt=false;
-let sketchupZoomScale=1, sketchupIsDragging=false;
-const SU_MIN=1, SU_MAX=5;
-
-function sketchupGetActiveImg(){return document.querySelector('#sketchupImgScroll .revit-stage-img.active')}
-function sketchupApplyZoom(img){img.style.transform='scale('+sketchupZoomScale+')';img.style.transformOrigin='top left';}
-function sketchupUpdateZoomBtns(){
-  const zi=document.getElementById('sketchupZoomIn'),zo=document.getElementById('sketchupZoomOut');
-  if(zi)zi.disabled=sketchupZoomScale>=SU_MAX;
-  if(zo)zo.disabled=sketchupZoomScale<=SU_MIN;
-}
-function sketchupResetZoom(){
-  sketchupZoomScale=1;
-  const img=sketchupGetActiveImg();
-  if(img)img.style.transform='scale(1)';
-  const scroll=document.getElementById('sketchupImgScroll');
-  if(scroll){scroll.classList.remove('zoomed');scroll.scrollTop=0;scroll.scrollLeft=0;}
-  document.getElementById('sketchupStage').classList.remove('zoomed');
-  sketchupUpdateZoomBtns();
-}
-function sketchupZoomStep(factor){
-  const img=sketchupGetActiveImg();if(!img)return;
-  sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*factor));
-  sketchupApplyZoom(img);
-  const scroll=document.getElementById('sketchupImgScroll');
-  scroll.classList.toggle('zoomed',sketchupZoomScale>1);
-  document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
-  sketchupUpdateZoomBtns();
-}
-function sketchupInitZoom(){
-  const scroll=document.getElementById('sketchupImgScroll');
-  if(!document.getElementById('sketchupZoomHint')){
-    const h=document.createElement('div');
-    h.className='revit-zoom-hint';h.id='sketchupZoomHint';
-    h.textContent='scroll \u00b7 click to zoom \u00b7 dbl-click to reset';
-    document.getElementById('sketchupStage').appendChild(h);
+/* ════════════════════════════════════════════════════════════
+   SINGLE GLOBAL KEYBOARD HANDLER
+════════════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    if(revitGallery.isOpen())    { revitGallery.close();    return; }
+    if(sketchupGallery.isOpen()) { sketchupGallery.close(); return; }
+    if(autocadIsOpen())          { closeAutocadGallery();   return; }
+    if($('panel').classList.contains('open')) { closePanel(); return; }
+    if($('mobileMenu').classList.contains('open')) toggleMenu();
+    return;
   }
-  scroll.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const img=sketchupGetActiveImg();if(!img)return;
-    sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*(e.deltaY>0?0.85:1.18)));
-    sketchupApplyZoom(img);
-    scroll.classList.toggle('zoomed',sketchupZoomScale>1);
-    document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
-    sketchupUpdateZoomBtns();
-  },{passive:false});
-  scroll.addEventListener('click',e=>{
-    if(sketchupIsDragging)return;
-    if(sketchupZoomScale>1)return;
-    const img=sketchupGetActiveImg();if(!img)return;
-    if(sketchupZoomScale>=SU_MAX){sketchupResetZoom();return;}
-    sketchupZoomScale=Math.min(SU_MAX,sketchupZoomScale*1.8);
-    sketchupApplyZoom(img);
-    scroll.classList.toggle('zoomed',sketchupZoomScale>1);
-    document.getElementById('sketchupStage').classList.toggle('zoomed',sketchupZoomScale>1);
-    sketchupUpdateZoomBtns();
-  });
-  scroll.addEventListener('dblclick',e=>{e.preventDefault();sketchupResetZoom();});
-  scroll.addEventListener('mousedown',e=>{
-    if(sketchupZoomScale<=1)return;
-    e.preventDefault();sketchupIsDragging=false;
-    const sx=e.clientX+scroll.scrollLeft, sy=e.clientY+scroll.scrollTop;
-    scroll.classList.add('dragging');
-    document.getElementById('sketchupStage').classList.add('dragging');
-    const onMove=ev=>{sketchupIsDragging=true;scroll.scrollLeft=sx-ev.clientX;scroll.scrollTop=sy-ev.clientY;};
-    const onUp=()=>{scroll.classList.remove('dragging');document.getElementById('sketchupStage').classList.remove('dragging');setTimeout(()=>{sketchupIsDragging=false;},50);window.removeEventListener('mousemove',onMove);window.removeEventListener('mouseup',onUp);};
-    window.addEventListener('mousemove',onMove);window.addEventListener('mouseup',onUp);
-  });
-  let lastDist=0;
-  scroll.addEventListener('touchstart',e=>{
-    if(e.touches.length===2)lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-  },{passive:true});
-  scroll.addEventListener('touchmove',e=>{
-    if(e.touches.length===2){
-      e.preventDefault();
-      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      sketchupZoomScale=Math.max(SU_MIN,Math.min(SU_MAX,sketchupZoomScale*(dist/lastDist)));
-      lastDist=dist;
-      const img=sketchupGetActiveImg();if(img)sketchupApplyZoom(img);
-      scroll.classList.toggle('zoomed',sketchupZoomScale>1);
-      sketchupUpdateZoomBtns();
-    }
-  },{passive:false});
-}
-function buildSketchupGallery(){
-  const scroll=document.getElementById('sketchupImgScroll');
-  const strip=document.getElementById('sketchupStrip');
-  let lastTag=null;
-  SKETCHUP_SLIDES.forEach((s,i)=>{
-    const img=document.createElement('img');
-    img.className='revit-stage-img'+(i===0?' active':'');
-    img.src=s.src;img.alt=s.caption;
-    img.onerror=function(){this.style.opacity='0.25';this.alt='Image unavailable: '+s.caption;};
-    scroll.appendChild(img);
-    if(s.tag!==lastTag){
-      const sec=document.createElement('div');
-      sec.className='revit-strip-section';
-      const sp=document.createElement('span');
-      sp.textContent=s.tag;sec.appendChild(sp);
-      strip.appendChild(sec);lastTag=s.tag;
-    }
-    const th=document.createElement('div');
-    th.className='revit-thumb'+(i===0?' active':'');
-    th.onclick=()=>sketchupGoTo(i);th.title=s.caption;
-    const ti=document.createElement('img');
-    ti.src=s.src;ti.alt=s.caption;th.appendChild(ti);
-    strip.appendChild(th);
-  });
-}
-function sketchupGoTo(idx){
-  sketchupResetZoom();
-  const scroll=document.getElementById('sketchupImgScroll');
-  if(scroll){scroll.scrollTop=0;scroll.scrollLeft=0;}
-  document.querySelectorAll('#sketchupImgScroll .revit-stage-img')[sketchupCur]?.classList.remove('active');
-  document.querySelectorAll('#sketchupStrip .revit-thumb')[sketchupCur]?.classList.remove('active');
-  sketchupCur=idx;
-  document.querySelectorAll('#sketchupImgScroll .revit-stage-img')[sketchupCur]?.classList.add('active');
-  const thumbs=document.querySelectorAll('#sketchupStrip .revit-thumb');
-  thumbs[sketchupCur]?.classList.add('active');
-  thumbs[sketchupCur]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-  const s=SKETCHUP_SLIDES[sketchupCur];
-  document.getElementById('sketchupTag').textContent=s.tag;
-  document.getElementById('sketchupTitle').textContent=s.title;
-  document.getElementById('sketchupCounter').textContent=String(sketchupCur+1).padStart(2,'0')+' / '+String(SKETCHUP_SLIDES.length).padStart(2,'0');
-  document.getElementById('sketchupCaption').textContent=s.caption;
-  document.getElementById('sketchupPrev').disabled=sketchupCur===0;
-  document.getElementById('sketchupNext').disabled=sketchupCur===SKETCHUP_SLIDES.length-1;
-}
-function sketchupNav(dir){
-  const n=sketchupCur+dir;
-  if(n>=0&&n<SKETCHUP_SLIDES.length)sketchupGoTo(n);
-}
-function openSketchupGallery(){
-  if(!sketchupBuilt){buildSketchupGallery();sketchupInitZoom();sketchupBuilt=true;}
-  sketchupGoTo(0);
-  document.getElementById('sketchupModalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeSketchupGallery(){
-  document.getElementById('sketchupModalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-function sketchupOverlayClick(e){
-  if(e.target===document.getElementById('sketchupModalOverlay'))closeSketchupGallery();
-}
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('sketchupModalOverlay').classList.contains('open'))return;
-  if(e.key==='ArrowRight')sketchupNav(1);
-  if(e.key==='ArrowLeft')sketchupNav(-1);
-  if(e.key==='Escape')closeSketchupGallery();
+  if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+    const dir = e.key === 'ArrowRight' ? 1 : -1;
+    if(revitGallery.isOpen())         revitGallery.nav(dir);
+    else if(sketchupGallery.isOpen()) sketchupGallery.nav(dir);
+    else if(autocadIsOpen() && autocadActiveCategory && autocadGalleryVisible()) autocadNav(dir);
+  }
 });
-
 </script>
 </body>
 </html>
